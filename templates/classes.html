@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="main-image">
@@ -20,9 +22,10 @@
     <div class="row">
         <div class="col-8 offset-2">
             {% for yoga_class in yoga_classes %}
-            <p>{{ yoga_class.yoga_type }}</p>
-            <p>{{ yoga_class.days }}</p>
-            <p>{{ yoga_class.times }}</p>
+            <p class="class_title">{{ yoga_class.yoga_type }}</p>
+            <p class="day">{{ yoga_class.day }}</p>
+            <p class="day_name">{{ yoga_class.day_name }}</p>
+            <p class="time">{{ yoga_class.time }}</p>
             <p>{{ yoga_class.available_spaces }}</p>
             {% endfor %}
         </div>
@@ -33,106 +36,118 @@
     </div>
     <div class="row">
         <div class="col-8 offset-2">
+          <div class="new"></div>
             <table class="table table-bordered">
                 <thead>
-                  <tr>
+                  <tr class="cols">
                     <th scope="col">#</th>
-                    <th scope="col">Monday</th>
-                    <th scope="col">Tuesday</th>
-                    <th scope="col">Wednesday</th>
-                    <th scope="col">Thursday</th>
-                    <th scope="col">Friday</th>
-                    <th scope="col">Saturday</th>
-                    <th scope="col">Sunday</th>
+                    <th class="day1" scope="col">Monday</th>
+                    <th class="day2" scope="col">Tuesday</th>
+                    <th class="day3" scope="col">Wednesday</th>
+                    <th class="day4" scope="col">Thursday</th>
+                    <th class="day5" scope="col">Friday</th>
+                    <th class="day6" scope="col">Saturday</th>
+                    <th class="day7"scope="col">Sunday</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">9:00 - 10:00</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th class="row" scope="row">9:00 - 10:00</th>
+                    <td class="day1"></td> 
+                    <td class="day2"></td>
+                    <td class="day3"></td>
+                    <td class="day4"></td>
+                    <td class="day5"></td> 
+                    <td class="day6"></td>
+                    <td class="day7"></td>
                   </tr>
                   <tr>
-                    <th scope="row">10:00 - 11:00</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th class="row" scope="row">10:00 - 11:00</th>
+                    <td class="day1"></td>
+                    <td class="day2"></td>
+                    <td class="day3"></td>
+                    <td class="day4"></td>
+                    <td class="day5"></td>
+                    <td class="day6"></td>
+                    <td class="day7"></td>
                   </tr>
                   <tr>
-                    <th scope="row">11:00 - 12:00</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th class="row" scope="row">11:00 - 12:00</th>
+                    <td class="day1"></td>
+                    <td class="day2"></td>
+                    <td class="day3"></td>
+                    <td class="day4"></td>
+                    <td class="day5"></td>
+                    <td class="day6"></td>
+                    <td class="day7"></td>
                   </tr>
                   <tr>
-                    <th scope="row">14:00 - 15:00</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th class="row" scope="row">14:00 - 15:00</th>
+                    <td class="day1"></td>
+                    <td class="day2"></td>
+                    <td class="day3"></td>
+                    <td class="day4"></td>
+                    <td class="day5"></td>
+                    <td class="day6"></td>
+                    <td class="day7"></td>
                   </tr>
                   <tr>
-                    <th scope="row">15:00 - 16:00</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th class="row" scope="row">15:00 - 16:00</th>
+                    <td class="day1"></td>
+                    <td class="day2"></td>
+                    <td class="day3"></td>
+                    <td class="day4"></td>
+                    <td class="day5"></td>
+                    <td class="day6"></td>
+                    <td class="day7"></td>
                   </tr>
                   <tr>
-                    <th scope="row">16:00 - 17:00</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th class="row" scope="row">16:00 - 17:00</th>
+                    <td class="day1"></td>
+                    <td class="day2"></td>
+                    <td class="day3"></td>
+                    <td class="day4"></td>
+                    <td class="day5"></td>
+                    <td class="day6"></td>
+                    <td class="day7"></td>
                   </tr>
                   <tr>
-                    <th scope="row">17:00 - 18:00</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th class="row" scope="row">17:00 - 18:00</th>
+                    <td class="day1"></td>
+                    <td class="day2"></td>
+                    <td class="day3"></td>
+                    <td class="day4"></td>
+                    <td class="day5"></td>
+                    <td class="day6"></td>
+                    <td class="day7"></td>
                   </tr>
                   <tr>
-                    <th scope="row">20:00 - 21:00</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <th class="row" scope="row">20:00 - 21:00</th>
+                    <td class="day1"></td>
+                    <td class="day2"></td>
+                    <td class="day3"></td>
+                    <td class="day4"></td>
+                    <td class="day5"></td>
+                    <td class="day6"></td>
+                    <td class="day7"></td>
                   </tr>
                 </tbody>
               </table>
         </div>
     </div>
+    <div>
+      {% if user.is_authenticated %}
+
+      <h3>Leave a comment:</h3>
+      <p>Posting as: {{ user.username }}</p>
+      <form method="post" style="margin-top: 1.3em;">
+          <!-- {{ reservation_form | crispy }} -->
+          {% csrf_token %}
+          <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+      </form>
+      {% endif %}
+    </div>
 
 </div>
 
-
-{%endblock%}
+{% endblock %}

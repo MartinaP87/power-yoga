@@ -1,10 +1,10 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import YogaType, YogaClass
 from .forms import ReservationForm
+
 import datetime
-from django.shortcuts import render, redirect, get_object_or_404
 
 
 def mainp(request):
@@ -16,17 +16,50 @@ def class_type_list(request):
     yoga_classes = YogaClass.objects.filter(status=1)
     context = {
         'yoga_types_list': yoga_types_list,
-        'yoga_classes': yoga_classes
+        'yoga_classes': yoga_classes,
+        'reservation_form': ReservationForm()
     }
+   
+    print("ciao")
     return render(request, "classes.html", context)
 
 
+def reserve(request):
+    form = ReservationForm()
+    if request.method == 'POST':
+        if available_spaces > 0:
+            messages.success(request, 'Your Reservation Was Successful!')
+            reduce_availabele_spaces(class_id)
+            return redirect('my_classes')
+        else:
+            messages.info(
+                request, 'Unfortunately this class is fully booked.Why not picking another class?!')
+            return redirect('classes')
+
+# def add_reservation(request):
+#     if request.method == 'POST':
+#         form = ReservationForm(request.POST)
+#         if available_spaces > 0:
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect('my_classes')
+#         else:
+#             messages.info(
+#                 request, 'Unfortunately this class is fully booked.\
+#                 Why not picking another class?!')
+#             return redirect('classes')
+#     form = ReservationForm()
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'classes.html', context)
+
 # class ClassDetail(View):
 
-#     def get(self, request, yoga_type, *args, **kwargs):
+#     def get(self, request, id, *args, **kwargs):
 #         queryset = YogaClass.objects.filter(status=1)
-#         yoga_section = get_object_or_404(queryset, yoga_type=yoga_type)
-#         reservations = yoga_class.reservations.filter(approved=True)
+#         yoga_section = get_object_or_404(queryset, id=id)
+#         reservations = yoga_section.reservations.filter(approved=True)
 #         return render(
 #             request,
 #             "classes.html",
@@ -116,4 +149,3 @@ def class_type_list(request):
 #                 "liked": liked
 #             },
 #         )
-

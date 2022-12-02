@@ -43,6 +43,9 @@ a, .btn {
 button {
     color:#3e1d00;
 }
+.row {
+    --bs-gutter-x: 0px;
+}
 footer p {
     margin-top: 0;
     margin-bottom: 1rem;

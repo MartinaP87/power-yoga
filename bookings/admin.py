@@ -16,14 +16,14 @@ class YogaTypeAdmin(SummernoteModelAdmin):
 class YogaClassAdmin(SummernoteModelAdmin):
 
     list_filter = ('status', 'yoga_type')
-    list_display = ('yoga_type', 'days', 'times', 'status', 'available_spaces')
-    search_fields = ['yoga_type', 'days']
+    list_display = ('yoga_type', 'day_name', 'day', 'time', 'status', 'available_spaces')
+    search_fields = ['yoga_type', 'day']
 
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     list_filter = ('yoga_class', 'approved',)
-    list_display = ('yoga_class', 'day', 'time', 'member', 'approved')
+    list_display = ('yoga_class', 'member', 'approved')
     search_fields = [
         'member', 'yoga_class']
     actions = ['approve_class']
