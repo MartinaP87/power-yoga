@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Fleur+De+Leah&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
 body {
     background-image: url('/static/images/car.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: Estonia, papyrus, serif;
+    font-family: 'Playfair Display', serif;
     color: #3e1d00;
     font-size: 2rem;
     
@@ -14,6 +16,7 @@ body {
 }
 .navbar-nav .nav-item .nav-link,
 a, .btn {
+    font-family: 'Fleur De Leah', cursive;
     font-size: 1.8rem;
     color: #562800;
     font-weight: bold;
@@ -22,12 +25,14 @@ a, .btn {
 
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-brand {
+    font-family: 'Fleur De Leah', cursive;
     color: #3e1d00;
     font-weight: 900;
     font-size: 1.8rem;
     padding-left: 2rem;
 }
 .navbar-light .navbar-brand {
+    font-family: 'Fleur De Leah', cursive;
     font-size: 2.5rem;
 }
 .container-fluid{
@@ -45,6 +50,10 @@ button {
 }
 .row {
     --bs-gutter-x: 0px;
+}
+th {
+    font-size: 1.5rem;
+    text-align: center;
 }
 footer p {
     margin-top: 0;
