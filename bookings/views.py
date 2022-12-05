@@ -13,34 +13,52 @@ def mainp(request):
 
 def class_type_list(request):
     yoga_types_list = YogaType.objects.filter(status=1)
-    yoga_classes = YogaClass.objects.filter(status=1)
+    # yoga_classes = YogaClass.objects.filter(status=1)
     context = {
         'yoga_types_list': yoga_types_list,
-        'yoga_classes': yoga_classes,
+        # 'yoga_classes': yoga_classes,
         'reservation_form': ReservationForm()
     }
-   
-    print("ciao")
     return render(request, "classes.html", context)
 
 
-def reserve(request):
-    form = ReservationForm()
-    if request.method == 'POST':
-        if available_spaces > 0:
+def book(self, request, yoga_class_id, *args, **kwargs):
+    print("culof")
+    queryset = YogaClass.objects.filter(status=1)
+    class_to_book = get_object_or_404(queryset, id=yoga_class_id)
+    print(class_to_book)
+    available_spaces = class_to_book.available_spaces
+    print("Cazzo", available_spaces)
+    reservation_form = ReservationForm(data=request.POST)
+    if reservation_form.is_valid():
+        if possible_bookings > 0:
+            
+            reservation_form.instance.member = request.user.member
+            reservation = reservation_form.save(commit=False)
+            reservation.post = post
+            reservation.save()
             messages.success(request, 'Your Reservation Was Successful!')
-            reduce_availabele_spaces(class_id)
-            return redirect('my_classes')
+            availabele_spaces = int(availabele_spaces) - 1
+            # return redirect('my_bookings')
         else:
             messages.info(
                 request, 'Unfortunately this class is fully booked.Why not picking another class?!')
             return redirect('classes')
+    else:
+        messages.info(request, 'Unfortunately...')
+        reservation_form = ReservationForm()
+        return render(
+            request,
+            "classes.html",
+        )
+
 
 # def add_reservation(request):
 #     if request.method == 'POST':
 #         form = ReservationForm(request.POST)
 #         if available_spaces > 0:
 #             if form.is_valid():
+#                 available_spaces = int(available_spaces) - 1
 #                 form.save()
 #                 return redirect('my_classes')
 #         else:

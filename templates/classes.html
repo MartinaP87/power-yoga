@@ -4,172 +4,164 @@
 
 {% block content %}
 <div class="main-image">
-    <h1>Classes:</h1>
-    <div class="row">
-        {% for yoga_class_item in yoga_types_list %}
-        <div class="col-4">    
-            <div class="card">
-                <img class="card-img-top" src="{{ yoga_class_item.featured_image.url }}" alt="Card image cap">
-                <div class="card-body">
-                    <h3 class="card-title">{{ yoga_class_item.title }}</h3>
-                    <p class="card-text">{{ yoga_class_item.introduction | safe }}</p>
-                    <a href="#" class="btn btn-primary">More</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    <div class="row  d-none">
-        <div class="col-8 offset-2">
-            {% for yoga_class in yoga_classes %}
-            <p class="class_title">{{ yoga_class.yoga_type }}</p>
-            <p class ="class_id">{{ yoga_class.id }}</p>
-            <p class="day">{{ yoga_class.day }}</p>
-            <p class="day_name">{{ yoga_class.day_name }}</p>
-            <p class="time"><button>{{ yoga_class.time }}</button></p>
-            <p>{{ yoga_class.available_spaces }}</p>
-            {% endfor %}
-        </div>
-        <div>
-            {{ yoga.section.yoga_type }}
-            {{ reservations.member }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8 offset-2">
-          <div class="new table-responsive"></div>
-            <table class="table table-bordered">
-                <thead>
-                  <tr class="cols">
-                    <th scope="col">#</th>
-                    <th class="day1" scope="col">Monday</th>
-                    <th class="day2" scope="col">Tuesday</th>
-                    <th class="day3" scope="col">Wednesday</th>
-                    <th class="day4" scope="col">Thursday</th>
-                    <th class="day5" scope="col">Friday</th>
-                    <th class="day6" scope="col">Saturday</th>
-                    <th class="day7"scope="col">Sunday</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="rows">
-                    <th scope="row">9:00 - 10:00</th>
-                    <td class="day1"></td> 
-                    <td class="day2"></td>
-                    <td class="day3"></td>
-                    <td class="day4"></td>
-                    <td class="day5"></td> 
-                    <td class="day6"></td>
-                    <td class="day7"></td>
-                  </tr>
-                  <tr class="rows">
-                    <th scope="row">10:00 - 11:00</th>
-                    <td class="day1"></td>
-                    <td class="day2"></td>
-                    <td class="day3"></td>
-                    <td class="day4"></td>
-                    <td class="day5"></td>
-                    <td class="day6"></td>
-                    <td class="day7"></td>
-                  </tr>
-                  <tr class="rows">
-                    <th scope="row">11:00 - 12:00</th>
-                    <td class="day1"></td>
-                    <td class="day2"></td>
-                    <td class="day3"></td>
-                    <td class="day4"></td>
-                    <td class="day5"></td>
-                    <td class="day6"></td>
-                    <td class="day7"></td>
-                  </tr>
-                  <tr class="rows">
-                    <th scope="row">14:00 - 15:00</th>
-                    <td class="day1"></td>
-                    <td class="day2"></td>
-                    <td class="day3"></td>
-                    <td class="day4"></td>
-                    <td class="day5"></td>
-                    <td class="day6"></td>
-                    <td class="day7"></td>
-                  </tr>
-                  <tr class="rows">
-                    <th scope="row">15:00 - 16:00</th>
-                    <td class="day1"></td>
-                    <td class="day2"></td>
-                    <td class="day3"></td>
-                    <td class="day4"></td>
-                    <td class="day5"></td>
-                    <td class="day6"></td>
-                    <td class="day7"></td>
-                  </tr>
-                  <tr class="rows">
-                    <th scope="row">16:00 - 17:00</th>
-                    <td class="day1"></td>
-                    <td class="day2"></td>
-                    <td class="day3"></td>
-                    <td class="day4"></td>
-                    <td class="day5"></td>
-                    <td class="day6"></td>
-                    <td class="day7"></td>
-                  </tr>
-                  <tr class="rows">
-                    <th scope="row">17:00 - 18:00</th>
-                    <td class="day1"></td>
-                    <td class="day2"></td>
-                    <td class="day3"></td>
-                    <td class="day4"></td>
-                    <td class="day5"></td>
-                    <td class="day6"></td>
-                    <td class="day7"></td>
-                  </tr>
-                  <tr class="rows">
-                    <th scope="row">20:00 - 21:00</th>
-                    <td class="day1"></td>
-                    <td class="day2"></td>
-                    <td class="day3"></td>
-                    <td class="day4"></td>
-                    <td class="day5"></td>
-                    <td class="day6"></td>
-                    <td class="day7"></td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+  <h1>Classes:</h1>
+  <div class="row">
+    {% for yoga_class_item in yoga_types_list %}
+    <div class="col-4">
+      <div class="card">
+        <img class="card-img-top" src="{{ yoga_class_item.featured_image.url }}" alt="Card image cap">
+        <div class="card-body">
+          <h3 class="card-title">{{ yoga_class_item.title }}</h3>
+          <p class="card-text">{{ yoga_class_item.introduction | safe }}</p>
+          <a href="#" class="btn btn-primary">More</a>
         </div>
       </div>
     </div>
-
-    <div>
-      {% if user.is_authenticated %}
-
-      <h3>Leave a comment:</h3>
-      <p>Posting as: {{ user.username }}</p>
-      <form method="post" style="margin-top: 1.3em;">
-          <!-- {{ reservation_form | crispy }} -->
-          {% csrf_token %}
-          <button type="submit" class="btn btn-signup btn-lg">Submit</button>
-      </form>
-      {% endif %}
+    {% endfor %}
+  </div>
+  {% for yoga_class in yoga_classes %}
+  <div class="row d-none">
+    <div class="col-8 offset-2">
+      <p class="class_title">{{ yoga_class.yoga_type }}</p>
+      <p class="class_id">{{ yoga_class.id }}</p>
+      <p class="day">{{ yoga_class.day }}</p>
+      <p class="day_name">{{ yoga_class.day_name }}</p>
+      <p class="time">{{ yoga_class.time }}</p>
+      <p>{{ yoga_class.available_spaces }}</p>
     </div>
+  </div>
 
-</div>
+  {% if user.is_authenticated %}
+  <div class="modal" method="post" id="myModal{{ yoga_class.id }}">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Book Your Class:</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <h3>Booking as: {{ user.username }}</h3>
+          <form method="post">
+            {{ comment_form | crispy }}
+            {% csrf_token %}
+            <p>{{ yoga_class.yoga_type }}</p>
+            <p class="d-none">{{ yoga_class.id }}</p>
+            <p>Date: {{ yoga_class.day_name }}, {{ yoga_class.day }}</p>
+            <p>Time: {{ yoga_class.time }}</p>
+            <p>Available spaces: {{ yoga_class.available_spaces }}</p>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-signup btn-lg">Book Your Spot!</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  <div class="row">
+    <div class="col-10 offset-1">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="cols">
+            <th scope="col"></th>
+            <th class="day1" scope="col">Monday</th>
+            <th class="day2" scope="col">Tuesday</th>
+            <th class="day3" scope="col">Wednesday</th>
+            <th class="day4" scope="col">Thursday</th>
+            <th class="day5" scope="col">Friday</th>
+            <th class="day6" scope="col">Saturday</th>
+            <th class="day7" scope="col">Sunday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="rows">
+            <th scope="row">9:00 - 10:00</th>
+            <td class="day1"></td>
+            <td class="day2"></td>
+            <td class="day3"></td>
+            <td class="day4"></td>
+            <td class="day5"></td>
+            <td class="day6"></td>
+            <td class="day7"></td>
+          </tr>
+          <tr class="rows">
+            <th scope="row">10:00 - 11:00</th>
+            <td class="day1"></td>
+            <td class="day2"></td>
+            <td class="day3"></td>
+            <td class="day4"></td>
+            <td class="day5"></td>
+            <td class="day6"></td>
+            <td class="day7"></td>
+          </tr>
+          <tr class="rows">
+            <th scope="row">11:00 - 12:00</th>
+            <td class="day1"></td>
+            <td class="day2"></td>
+            <td class="day3"></td>
+            <td class="day4"></td>
+            <td class="day5"></td>
+            <td class="day6"></td>
+            <td class="day7"></td>
+          </tr>
+          <tr class="rows">
+            <th scope="row">14:00 - 15:00</th>
+            <td class="day1"></td>
+            <td class="day2"></td>
+            <td class="day3"></td>
+            <td class="day4"></td>
+            <td class="day5"></td>
+            <td class="day6"></td>
+            <td class="day7"></td>
+          </tr>
+          <tr class="rows">
+            <th scope="row">15:00 - 16:00</th>
+            <td class="day1"></td>
+            <td class="day2"></td>
+            <td class="day3"></td>
+            <td class="day4"></td>
+            <td class="day5"></td>
+            <td class="day6"></td>
+            <td class="day7"></td>
+          </tr>
+          <tr class="rows">
+            <th scope="row">16:00 - 17:00</th>
+            <td class="day1"></td>
+            <td class="day2"></td>
+            <td class="day3"></td>
+            <td class="day4"></td>
+            <td class="day5"></td>
+            <td class="day6"></td>
+            <td class="day7"></td>
+          </tr>
+          <tr class="rows">
+            <th scope="row">17:00 - 18:00</th>
+            <td class="day1"></td>
+            <td class="day2"></td>
+            <td class="day3"></td>
+            <td class="day4"></td>
+            <td class="day5"></td>
+            <td class="day6"></td>
+            <td class="day7"></td>
+          </tr>
+          <tr class="rows">
+            <th scope="row">20:00 - 21:00</th>
+            <td class="day1"></td>
+            <td class="day2"></td>
+            <td class="day3"></td>
+            <td class="day4"></td>
+            <td class="day5"></td>
+            <td class="day6"></td>
+            <td class="day7"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-{% endblock %}
+
+  {% endblock %}
