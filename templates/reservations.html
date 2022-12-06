@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+  <h2>Your Reservations:</h2>
+  {% for reservation in reservations %}
+  <p>{{ reservation.yoga_class }}</p>
+  {% if reservation.approved %}
+  <p>Confirmed!</p>
+  {% else %}
+  <p>Reservation waiting for approval</p>
+  {% endif %}
+  
+  {% endfor %}
+          
+
+
+  {% endblock %}

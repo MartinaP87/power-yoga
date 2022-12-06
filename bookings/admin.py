@@ -26,7 +26,7 @@ class ReservationAdmin(admin.ModelAdmin):
     list_display = ('yoga_class', 'member', 'approved')
     search_fields = [
         'member', 'yoga_class']
-    actions = ['approve_class']
+    actions = ['approve']
 
-    def approve_class(self, request, queryset):
+    def approve(self, request, queryset):
         queryset.update(approved=True)
