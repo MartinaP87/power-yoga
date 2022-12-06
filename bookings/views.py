@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
-from django.views import generic, View
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from .models import YogaType, YogaClass
 from .forms import ReservationForm
 
@@ -12,65 +12,79 @@ def mainp(request):
 
 
 def class_type_list(request):
+
     yoga_types_list = YogaType.objects.filter(status=1)
-    # yoga_classes = YogaClass.objects.filter(status=1)
+    yoga_classes = YogaClass.objects.filter(status=1)
     context = {
         'yoga_types_list': yoga_types_list,
-        # 'yoga_classes': yoga_classes,
-        'reservation_form': ReservationForm()
+        'yoga_classes': yoga_classes,
     }
     return render(request, "classes.html", context)
 
 
-def book(self, request, yoga_class_id, *args, **kwargs):
-    print("culof")
+def bookit(request, yoga_class_id, *args, **kwargs):
+    print("BookCalled")
+    # member = request.user
+    # queryset = YogaClass.objects.filter(status=1)
+    # yoga_class = get_object_or_404(queryset, id=yoga_class_id)
+
+    # if request.method == 'POST':
+    #     ReservationForm = Reservation.objects.create(
+    #         yoga_class=yoga_class,
+    #         member=member
+    #     )
+    #     messages.success(request, "created appointment")
+    #     return redirect('home')
+    # return redirect('home')
     queryset = YogaClass.objects.filter(status=1)
     class_to_book = get_object_or_404(queryset, id=yoga_class_id)
-    print(class_to_book)
+    reservations = class_to_book.reservations.filter(approved=True)
+    print(reservations)
     available_spaces = class_to_book.available_spaces
-    print("Cazzo", available_spaces)
+    # reservation_form.fields["yoga_class"].queryset = YogaClass.objects.filter(
+    #     id=yoga_class_id)
     reservation_form = ReservationForm(data=request.POST)
     if reservation_form.is_valid():
-        if possible_bookings > 0:
-            
-            reservation_form.instance.member = request.user.member
-            reservation = reservation_form.save(commit=False)
-            reservation.post = post
-            reservation.save()
-            messages.success(request, 'Your Reservation Was Successful!')
-            availabele_spaces = int(availabele_spaces) - 1
+        print("form is valid")
+        reservation_form.instance.member = request.user
+        reservation = reservation_form.save(commit=False)
+        reservation.class_to_book = class_to_book
+        reservation.save()
+        messages.success(request, 'Your Reservation Was Successful!')
+            # availabele_spaces = int(availabele_spaces) - 1
             # return redirect('my_bookings')
+        return redirect('home')
+    else:
+        messages.info(
+            request, 'Unfortunately this class is fully booked.Why not picking another class?!')
+        return redirect('classes')
+    # else:
+    #     messages.info(request, 'Unfortunately...')
+    #     reservation_form = ReservationForm()
+    #     return render(
+    #         request,
+    #         "classes.html",
+    #     )
+
+
+def add_reservation(request):
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if available_spaces > 0:
+            if form.is_valid():
+                available_spaces = int(available_spaces) - 1
+                form.save()
+                return redirect('my_classes')
         else:
             messages.info(
-                request, 'Unfortunately this class is fully booked.Why not picking another class?!')
+                request, 'Unfortunately this class is fully booked.\
+                Why not picking another class?!')
             return redirect('classes')
-    else:
-        messages.info(request, 'Unfortunately...')
-        reservation_form = ReservationForm()
-        return render(
-            request,
-            "classes.html",
-        )
-
-
-# def add_reservation(request):
-#     if request.method == 'POST':
-#         form = ReservationForm(request.POST)
-#         if available_spaces > 0:
-#             if form.is_valid():
-#                 available_spaces = int(available_spaces) - 1
-#                 form.save()
-#                 return redirect('my_classes')
-#         else:
-#             messages.info(
-#                 request, 'Unfortunately this class is fully booked.\
-#                 Why not picking another class?!')
-#             return redirect('classes')
-#     form = ReservationForm()
-#     context = {
-#         'form': form
-#     }
-#     return render(request, 'classes.html', context)
+    form = ReservationForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'classes.html', context)
 
 # class ClassDetail(View):
 
