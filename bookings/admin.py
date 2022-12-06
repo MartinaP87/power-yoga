@@ -16,7 +16,7 @@ class YogaTypeAdmin(SummernoteModelAdmin):
 class YogaClassAdmin(SummernoteModelAdmin):
 
     list_filter = ('status', 'yoga_type')
-    list_display = ('yoga_type', 'day_name', 'day', 'time', 'status', 'available_spaces')
+    list_display = ('yoga_type', 'day', 'time', 'status', 'available_spaces')
     search_fields = ['yoga_type', 'day']
 
 

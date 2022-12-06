@@ -25,7 +25,7 @@
       <p class="class_title">{{ yoga_class.yoga_type }}</p>
       <p class="class_id">{{ yoga_class.id }}</p>
       <p class="day">{{ yoga_class.day }}</p>
-      <p class="day_name">{{ yoga_class.day_name }}</p>
+      <p class="day_name">{{ yoga_class.day|date:"l" }}</p>
       <p class="time">{{ yoga_class.time }}</p>
       <p>{{ yoga_class.available_spaces }}</p>
     </div>
@@ -48,7 +48,7 @@
             {% csrf_token %}
             <p name="res_class_name">{{ yoga_class.yoga_type }}</p>
             <p class="d-none">{{ yoga_class.id }}</p>
-            <p>Date: {{ yoga_class.day_name }}, {{ yoga_class.day|date:"l, d M" }}</p>
+            <p>Date: {{ yoga_class.day|date:"l, M, d" }}</p>
             <p>Time: {{ yoga_class.time }}</p>
             <p>Available spaces: {{ yoga_class.available_spaces }}</p>
             

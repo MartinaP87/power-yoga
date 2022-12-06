@@ -43,8 +43,6 @@ class YogaClass(models.Model):
     yoga_type = models.ForeignKey(
         YogaType, on_delete=models.CASCADE, related_name="chosen_type"
     )
-    day_name = models.CharField(
-         max_length=15, choices=DAY_SLOT, default="Monday", null=False)
     day = models.DateField(null=False, blank=False, default=date.today)
     time = models.CharField(
          max_length=15, choices=TIME_SLOT, default="9:00 - 10:00", null=False)
@@ -52,7 +50,7 @@ class YogaClass(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
 
     def __str__(self):
-        return f"{self.yoga_type}\n Day:{self.day_name}, {self.day}, Time:{self.time}"
+        return f"{self.yoga_type}\n Day: {self.day}, Time:{self.time}"
 
 
 class Reservation(models.Model):
