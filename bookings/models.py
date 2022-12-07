@@ -65,7 +65,7 @@ class Reservation(models.Model):
     approved = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.yoga_class
+        return self.member.username
 
 # {self.days}, {self.times} {self.yoga_type}"
 # day = models.DateField(null=False, blank=False)
