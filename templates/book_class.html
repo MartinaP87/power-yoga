@@ -121,7 +121,6 @@
   <form method="post">
     {{ form | crispy }}
     {% csrf_token %}
-    <p>Available spaces: {{ yoga_class.available_spaces }}</p>
     <button type="submit" class="btn btn-signup btn-lg">Book Your Spot!</button>
   </form>
   {% endblock %}

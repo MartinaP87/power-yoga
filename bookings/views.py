@@ -38,9 +38,9 @@ def book(request):
                 reduce_available_spaces(request, reserved_class_id)
                 return redirect('reservations')
             else:
-                messages.info(request, 'Unfortunately the class is fully booked, choose another class!')
                 reservation = get_object_or_404(
                     Reservation, id=new_reservation.id)
+                messages.error(request, 'Unfortunately the class is fully booked, choose another class!')
                 reservation.delete()
                 return redirect('reservations')
     form = ReservationForm()

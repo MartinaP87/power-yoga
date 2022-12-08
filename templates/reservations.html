@@ -9,11 +9,11 @@
   <h2>Your Reservations:</h2>
   {% for reservation in reservations %}
   {% if reservation.approved %}
-  <p>{{ reservation.yoga_class.yoga_type }}: {{ reservation.yoga_class.day|date:"l, d M" }} time: {{ reservation.yoga_class.time }}</p>
-  <a href="{% url 'delete' reservation.id %}" class="post-link">Delete</a>
+  <p class="d-inline">{{ reservation.yoga_class.yoga_type }}: {{ reservation.yoga_class.day|date:"l, d M" }} time: {{ reservation.yoga_class.time }}</p>
+  <a class="d-inline" href="{% url 'delete' reservation.id %}" class="post-link">Delete<br></a>
   {% else %}
   {% for message in messages %}
-    <div class="alert alert-danger fixed-top alert-dismissable fade show" role="alert">
+    <div class="alert {{ message.tags }} fixed-top alert-dismissable fade show" role="alert">
       {{ message | safe }}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
