@@ -8,13 +8,16 @@
 
   <h2>Your Reservations:</h2>
   {% for reservation in reservations %}
-  <p>{{ reservation.yoga_class.yoga_type }}: {{ reservation.yoga_class.day|date:"l, d M" }} time: {{ reservation.yoga_class.time }}</p>
   {% if reservation.approved %}
-  <p>Confirmed!</p>
-  <p>{{ reservation_class }}</p>
+  <p>{{ reservation.yoga_class.yoga_type }}: {{ reservation.yoga_class.day|date:"l, d M" }} time: {{ reservation.yoga_class.time }}</p>
   <a href="{% url 'delete' reservation.id %}" class="post-link">Delete</a>
   {% else %}
-  <p>Unfortunately the class is sfully booked, your reservation can't be processed</p>
+  {% for message in messages %}
+    <div class="alert alert-danger fixed-top alert-dismissable fade show" role="alert">
+      {{ message | safe }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
   {% endif %}
   
   {% endfor %}

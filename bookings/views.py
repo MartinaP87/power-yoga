@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
 from .models import YogaType, YogaClass, Reservation
+from django.contrib import messages
 from .forms import ReservationForm
 import datetime
 
@@ -11,10 +11,8 @@ def home_page(request):
 
 def class_list(request):
     yoga_types_list = YogaType.objects.filter(status=1)
-    yoga_classes = YogaClass.objects.filter(status=1)
     context = {
         'yoga_types_list': yoga_types_list,
-        'yoga_classes': yoga_classes,
     }
     return render(request, "classes.html", context)
 
@@ -28,6 +26,7 @@ def reservations(request):
 
 
 def book(request):
+    yoga_classes = YogaClass.objects.filter(status=1)
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -38,8 +37,15 @@ def book(request):
             if new_reservation.approved:
                 reduce_available_spaces(request, reserved_class_id)
                 return redirect('reservations')
+            else:
+                messages.info(request, 'Unfortunately the class is fully booked, choose another class!')
+                reservation = get_object_or_404(
+                    Reservation, id=new_reservation.id)
+                reservation.delete()
+                return redirect('reservations')
     form = ReservationForm()
     context = {
+        'yoga_classes': yoga_classes,
         'form': form
     }
     print(form)

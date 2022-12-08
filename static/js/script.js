@@ -21,7 +21,7 @@ function table_update() {
                 for (let time_row = 0; time_row < time_rows.length; time_row++) {
                     let correct_class = time_rows[time_row].className;
                     if (title.classList.contains(correct_class)) {
-                        time_rows[time_row].innerHTML = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal' + class_id.innerText + '">' + title.innerText + '</button>';
+                        time_rows[time_row].innerHTML = title.innerText;
                         console.log( time_rows[time_row].innerHTML)
                     }
                 }
@@ -29,4 +29,6 @@ function table_update() {
         }
     }
 }
+
 table_update()
+// '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal' + class_id.innerText + '">' + 

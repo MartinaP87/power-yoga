@@ -3,20 +3,125 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+{% for yoga_class in yoga_classes %}
+<div class="row d-none">
+  <div class="col-8 offset-2">
+    <p class="class_title">{{ yoga_class.yoga_type }}</p>
+    <p class="class_id">{{ yoga_class.id }}</p>
+    <p class="day">{{ yoga_class.day }}</p>
+    <p class="day_name">{{ yoga_class.day|date:"l" }}</p>
+    <p class="time">{{ yoga_class.time }}</p>
+    <p>{{ yoga_class.available_spaces }}</p>
+  </div>
+</div>
+{% endfor %}
+<div class="row">
+  <div class="col-10 offset-1">
+    <table class="table table-bordered">
+      <thead>
+        <tr class="cols">
+          <th scope="col"></th>
+          <th class="day1" scope="col">Monday</th>
+          <th class="day2" scope="col">Tuesday</th>
+          <th class="day3" scope="col">Wednesday</th>
+          <th class="day4" scope="col">Thursday</th>
+          <th class="day5" scope="col">Friday</th>
+          <th class="day6" scope="col">Saturday</th>
+          <th class="day7" scope="col">Sunday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="rows">
+          <th scope="row">9:00 - 10:00</th>
+          <td class="day1"></td>
+          <td class="day2"></td>
+          <td class="day3"></td>
+          <td class="day4"></td>
+          <td class="day5"></td>
+          <td class="day6"></td>
+          <td class="day7"></td>
+        </tr>
+        <tr class="rows">
+          <th scope="row">10:00 - 11:00</th>
+          <td class="day1"></td>
+          <td class="day2"></td>
+          <td class="day3"></td>
+          <td class="day4"></td>
+          <td class="day5"></td>
+          <td class="day6"></td>
+          <td class="day7"></td>
+        </tr>
+        <tr class="rows">
+          <th scope="row">11:00 - 12:00</th>
+          <td class="day1"></td>
+          <td class="day2"></td>
+          <td class="day3"></td>
+          <td class="day4"></td>
+          <td class="day5"></td>
+          <td class="day6"></td>
+          <td class="day7"></td>
+        </tr>
+        <tr class="rows">
+          <th scope="row">14:00 - 15:00</th>
+          <td class="day1"></td>
+          <td class="day2"></td>
+          <td class="day3"></td>
+          <td class="day4"></td>
+          <td class="day5"></td>
+          <td class="day6"></td>
+          <td class="day7"></td>
+        </tr>
+        <tr class="rows">
+          <th scope="row">15:00 - 16:00</th>
+          <td class="day1"></td>
+          <td class="day2"></td>
+          <td class="day3"></td>
+          <td class="day4"></td>
+          <td class="day5"></td>
+          <td class="day6"></td>
+          <td class="day7"></td>
+        </tr>
+        <tr class="rows">
+          <th scope="row">16:00 - 17:00</th>
+          <td class="day1"></td>
+          <td class="day2"></td>
+          <td class="day3"></td>
+          <td class="day4"></td>
+          <td class="day5"></td>
+          <td class="day6"></td>
+          <td class="day7"></td>
+        </tr>
+        <tr class="rows">
+          <th scope="row">17:00 - 18:00</th>
+          <td class="day1"></td>
+          <td class="day2"></td>
+          <td class="day3"></td>
+          <td class="day4"></td>
+          <td class="day5"></td>
+          <td class="day6"></td>
+          <td class="day7"></td>
+        </tr>
+        <tr class="rows">
+          <th scope="row">20:00 - 21:00</th>
+          <td class="day1"></td>
+          <td class="day2"></td>
+          <td class="day3"></td>
+          <td class="day4"></td>
+          <td class="day5"></td>
+          <td class="day6"></td>
+          <td class="day7"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-          <h2">Book Your Class:</h2>
-         
-          <h3>Booking as: {{ user.username }}</h3>
-          <form  method="post">
-            {{ form | crispy }}
-            {% csrf_token %}
-            <p name="res_class_name">{{ yoga_class.yoga_type }}</p>
-            <p class="d-none">{{ yoga_class.id }}</p>
-            <p>Date: {{ yoga_class.day_name }}, {{ yoga_class.day|date:"l, d M" }}</p>
-            <p>Time: {{ yoga_class.time }}</p>
-            <p>Available spaces: {{ yoga_class.available_spaces }}</p>  
-            <button type="submit" class="btn btn-signup btn-lg">Book Your Spot!</button>
-          </form>
-
-
+<h2">Book Your Class:</h2>
+  <h3>Booking as: {{ user.username }}</h3>
+  <form method="post">
+    {{ form | crispy }}
+    {% csrf_token %}
+    <p>Available spaces: {{ yoga_class.available_spaces }}</p>
+    <button type="submit" class="btn btn-signup btn-lg">Book Your Spot!</button>
+  </form>
   {% endblock %}
