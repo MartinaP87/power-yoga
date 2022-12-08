@@ -62,7 +62,7 @@ class Reservation(models.Model):
     member = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="member"
     )
-    approved = models.BooleanField(default=False)
+    approved = models.BooleanField(default=True)
 
     def __str__(self):
         return self.member.username

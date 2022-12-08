@@ -27,21 +27,72 @@ def reservations(request):
     return render(request, 'reservations.html', context)
 
 
-def update_yoga_class(request):
-    reservations = Reservation.objects.all()
-    print(reservations)
-    for reservation in reservations:
-        yoga_class_id = reservation.yoga_class_id
-        queryset = YogaClass.objects.filter(status=1)
-        reserved_yoga_class = get_object_or_404(queryset, id=yoga_class_id)
-        spaces = int(reserved_yoga_class.available_spaces)
-        if reservation.approved:
-            updated_spaces = spaces - 1
-            reserved_yoga_class.available_spaces = updated_spaces
-            reserved_yoga_class.save()
-            print("bo")
-        print("YOGA", reserved_yoga_class.id, reserved_yoga_class.available_spaces)
-        
+def book(request):
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            new_reservation = form.save()
+            reserved_class_id = new_reservation.yoga_class_id
+            update_approval(request, new_reservation)
+            print(new_reservation.id)
+            if new_reservation.approved:
+                reduce_available_spaces(request, reserved_class_id)
+                return redirect('reservations')
+    form = ReservationForm()
+    context = {
+        'form': form
+    }
+    print(form)
+    return render(request, 'book_class.html', context)
+
+
+def delete_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+    reserved_class_id = reservation.yoga_class_id
+    reservation.delete()
+    increase_available_spaces(request, reserved_class_id)
+    return redirect('reservations')
+
+
+def update_approval(request, reservation):
+    reserved_class_id = reservation.yoga_class_id
+    queryset = YogaClass.objects.filter(status=1)
+    chosen_yoga_class = get_object_or_404(queryset, id=reserved_class_id)
+    if chosen_yoga_class.available_spaces > 0:
+        reservation.approved
+        reservation.save()
+    else:
+        reservation.approved = False
+        reservation.save()
+
+
+def reduce_available_spaces(request, chosen_class_id):
+    queryset = YogaClass.objects.filter(status=1)
+    chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)
+    spaces = int(chosen_yoga_class.available_spaces)
+    # if reservation.approved:
+    updated_spaces = spaces - 1
+    chosen_yoga_class.available_spaces = updated_spaces
+    chosen_yoga_class.save()
+    print("bo")
+    print("YOGA", chosen_yoga_class.id, chosen_yoga_class.available_spaces)
+
+
+def increase_available_spaces(request, chosen_class_id):
+    queryset = YogaClass.objects.filter(status=1)
+    chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)
+    spaces = int(chosen_yoga_class.available_spaces)
+    updated_spaces = spaces + 1
+    chosen_yoga_class.available_spaces = updated_spaces
+    chosen_yoga_class.save()
+    print("bodel")
+    print("YOGA", chosen_yoga_class.id, chosen_yoga_class.available_spaces)
+
+# def available_classes(request):
+#     classes = get_object_or_404(YogaClass.objects.filter(status=1))
+#     for single_class in classes:
+#         if int(single_class.available_spaces) > 0:
+
 # def update_yoga_class(request):
 #     reservations = Reservation.objects.all()
 #     for reservation in reservations:
@@ -55,36 +106,6 @@ def update_yoga_class(request):
 #             reserved_yoga_class.save()
 #             print("bo")
 #         print("YOGA", reserved_yoga_class.id, reserved_yoga_class.available_spaces)
-
-
-def delete_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id)
-    reservation.delete() 
-    return redirect('reservations')
-
-
-# def available_classes(request):
-#     classes = get_object_or_404(YogaClass.objects.filter(status=1))
-#     for single_class in classes:
-#         if int(single_class.available_spaces) > 0:
-
-
-def book(request):
-    if request.method == 'POST':
-        form = ReservationForm(request.POST)  
-        if form.is_valid():
-            m = form.save()
-            print(m)
-            update_yoga_class(request)
-            return redirect('reservations')
-    form = ReservationForm()
-    context = {
-        'form': form
-    }
-    print(form)
-    return render(request, 'book_class.html', context)
-
-
 # def book(request):
     # queryset = YogaClass.objects.filter(status=1)
     # yoga_class = get_object_or_404(queryset, id=yoga_class_id)

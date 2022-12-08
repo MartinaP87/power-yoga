@@ -12,8 +12,9 @@
   {% if reservation.approved %}
   <p>Confirmed!</p>
   <p>{{ reservation_class }}</p>
+  <a href="{% url 'delete' reservation.id %}" class="post-link">Delete</a>
   {% else %}
-  <p>Reservation waiting for approval</p>
+  <p>Unfortunately the class is sfully booked, your reservation can't be processed</p>
   {% endif %}
   
   {% endfor %}
