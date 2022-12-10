@@ -2,21 +2,31 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block additional_styles %}
+<style>
+    body {
+        background-image: none;
+    }
+</style>
+{% endblock %}
 
-<h2">Book Your Class:</h2>
-  <h3>Booking as: {{ user.username }}</h3>
-  <form method="post">
-    {{ form | crispy }}
-    {% csrf_token %}
-    <button type="submit" class="btn btn-signup btn-lg">Book Your Spot!</button>
-  </form>
-  {% for message in messages %}
-  <div class="alert {{ message.tags }} fixed-top alert-dismissable fade show" role="alert">
-    {{ message | safe }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+{% block content %}
+<div class="row">
+  <div class="col-4 offset-4">
+    <h2">Book Your Class:</h2>
+      <form method="post">
+        {{ form | crispy }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-signup btn-lg">Book Your Spot!</button>
+      </form>
   </div>
-  {% endfor %}
+</div>
+{% for message in messages %}
+<div class="alert {{ message.tags }} fixed-top alert-dismissable fade show" role="alert">
+  {{ message | safe }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
 
 {% for yoga_class in yoga_classes %}
 <div class="row d-none">
@@ -126,5 +136,5 @@
     </table>
   </div>
 </div>
- 
-  {% endblock %}
+
+{% endblock %}

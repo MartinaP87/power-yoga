@@ -2,7 +2,7 @@
 
 body {
     height:100vh;
-    background-image: url('/static/images/car.jpg');
+  
     background-size: cover;
     background-repeat: no-repeat;
     font-family: 'Playfair Display', serif;
@@ -42,9 +42,7 @@ a, .btn {
 .opaque {
     background-color: #f8f9fa73;
 }
-.main-image {
-    height: 33rem;
-}
+
 button {
     color:#3e1d00;
 }
