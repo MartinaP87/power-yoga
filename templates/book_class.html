@@ -23,18 +23,12 @@
   <div class="col-8 offset-2">
     <p class="class_title">{{ yoga_class.yoga_type }}</p>
     <p class="class_id">{{ yoga_class.id }}</p>
-    <p class="day">{{ yoga_class.day }}</p>
-    <p class="day_name">{{ yoga_class.day|date:"l" }}</p>
+    <p class="day">{{ yoga_class.day|date:"l, d M" }}</p>
     <p class="time">{{ yoga_class.time }}</p>
     <p>{{ yoga_class.available_spaces }}</p>
   </div>
 </div>
 {% endfor %}
-
-{% for days in week_days %}
-          {{ days }}
-          {{ week_days[days] }}
-          {% endfor %}
 
 <div class="row">
   <div class="col-10 offset-1">
@@ -42,15 +36,9 @@
       <thead>
         <tr class="cols">
           <th scope="col"></th>
-          
-          <th class="day1" scope="col"></th>
-          <th class="day2" scope="col">Tuesday</th>
-          <th class="day3" scope="col">Wednesday</th>
-          <th class="day4" scope="col">Thursday</th>
-          <th class="day5" scope="col">Friday</th>
-          <th class="day6" scope="col">Saturday</th>
-          <th class="day7" scope="col">Sunday</th>
-          
+          {% for days in week_days %}
+          <th class="day{{ forloop.counter }}" scope="col">{{ days|date:"l, d M" }}</th>
+          {% endfor %}
         </tr>
       </thead>
       <tbody>

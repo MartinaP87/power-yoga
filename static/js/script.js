@@ -1,9 +1,9 @@
 function table_update() {
-    let days = document.getElementsByClassName("day_name")
+    let days = document.getElementsByClassName("day")
     for (let i = 0; i < days.length; i++) {
         console.log(i)
         let class_id = document.getElementsByClassName("class_id")[i];
-        let day = document.getElementsByClassName("day_name")[i];
+        let day = document.getElementsByClassName("day")[i];
         let time = document.getElementsByClassName("time")[i];
         let title = document.getElementsByClassName("class_title")[i];
         let row_blocks = document.getElementsByClassName("rows");

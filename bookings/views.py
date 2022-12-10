@@ -28,6 +28,14 @@ def reservations(request):
 def book(request):
     week_days = get_days(request)
     yoga_classes = YogaClass.objects.filter(status=1)
+
+    yoga_classes_available = yoga_classes.filter(
+        day__range=[week_days[0], week_days[6]])
+    yoga_classes_available_now = yoga_classes.filter(
+        day__range=[date.today(), week_days[6]])
+    print(yoga_classes_available_now)
+    print(yoga_classes_available)
+    
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
@@ -48,7 +56,8 @@ def book(request):
                         request, 'Unfortunately the class is fully booked, choose another class!')
                     new_reservation.delete()
             else:
-                messages.warning(request, "To book a class with a different account login with its details")
+                messages.warning(
+                    request, "To book a class with a different account login with its details")
                 new_reservation.delete()
     form = ReservationForm()
     context = {
