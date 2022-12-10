@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import YogaType, YogaClass, Reservation
+from .models import User, YogaType, YogaClass, Reservation
 from django.contrib import messages
 from .forms import ReservationForm
-import datetime
+from datetime import date, timedelta
 
 
 def home_page(request):
@@ -12,7 +12,7 @@ def home_page(request):
 def class_list(request):
     yoga_types_list = YogaType.objects.filter(status=1)
     context = {
-        'yoga_types_list': yoga_types_list,
+        'yoga_types_list': yoga_types_list
     }
     return render(request, "classes.html", context)
 
@@ -26,29 +26,36 @@ def reservations(request):
 
 
 def book(request):
+    week_days = get_days(request)
     yoga_classes = YogaClass.objects.filter(status=1)
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
             new_reservation = form.save()
-            reserved_class_id = new_reservation.yoga_class_id
-            update_approval(request, new_reservation)
-            print(new_reservation.id)
-            if new_reservation.approved:
-                reduce_available_spaces(request, reserved_class_id)
-                return redirect('reservations')
+            if request.user.id == new_reservation.member.id:
+                reserved_class_id = new_reservation.yoga_class_id
+                update_approval(request, new_reservation)
+                print(new_reservation.id)
+                print("PRIMO", new_reservation.member)
+                if new_reservation.approved:
+                    reduce_available_spaces(request, reserved_class_id)
+                    return redirect('reservations')
+                else:
+                    print("fullybooked")
+                    reservation = get_object_or_404(
+                        Reservation, id=new_reservation.id)
+                    messages.error(
+                        request, 'Unfortunately the class is fully booked, choose another class!')
+                    new_reservation.delete()
             else:
-                reservation = get_object_or_404(
-                    Reservation, id=new_reservation.id)
-                messages.error(request, 'Unfortunately the class is fully booked, choose another class!')
-                reservation.delete()
-                return redirect('reservations')
+                messages.warning(request, "To book a class with a different account login with its details")
+                new_reservation.delete()
     form = ReservationForm()
     context = {
+        'week_days': week_days,
         'yoga_classes': yoga_classes,
         'form': form
     }
-    print(form)
     return render(request, 'book_class.html', context)
 
 
@@ -76,7 +83,6 @@ def reduce_available_spaces(request, chosen_class_id):
     queryset = YogaClass.objects.filter(status=1)
     chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)
     spaces = int(chosen_yoga_class.available_spaces)
-    # if reservation.approved:
     updated_spaces = spaces - 1
     chosen_yoga_class.available_spaces = updated_spaces
     chosen_yoga_class.save()
@@ -93,6 +99,14 @@ def increase_available_spaces(request, chosen_class_id):
     chosen_yoga_class.save()
     print("bodel")
     print("YOGA", chosen_yoga_class.id, chosen_yoga_class.available_spaces)
+
+
+def get_days(request):
+    today = date.today()
+    start = today - timedelta(days=today.weekday())
+    end = start + timedelta(days=6)
+    dates = [start + timedelta(days=i) for i in range((end-start).days+1)]
+    return (dates)
 
 # def available_classes(request):
 #     classes = get_object_or_404(YogaClass.objects.filter(status=1))
@@ -138,8 +152,8 @@ def increase_available_spaces(request, chosen_class_id):
     #     reservation.class_to_book = class_to_book
     #     reservation.save()
     #     messages.success(request, 'Your Reservation Was Successful!')
-            # availabele_spaces = int(availabele_spaces) - 1
-            # return redirect('my_bookings')
+    # availabele_spaces = int(availabele_spaces) - 1
+    # return redirect('my_bookings')
     #     return redirect('home')
     # else:
     #     messages.info(

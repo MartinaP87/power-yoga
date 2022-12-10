@@ -39,12 +39,12 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'classes' %}">Classes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'book' %}">Bookings</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'blog' %}">Blog</a>
                     </li>
                     {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'book' %}">Bookings</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'reservations' %}">My Reservations</a>
                     </li>

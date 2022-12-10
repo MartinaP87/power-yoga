@@ -3,6 +3,21 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
+<h2">Book Your Class:</h2>
+  <h3>Booking as: {{ user.username }}</h3>
+  <form method="post">
+    {{ form | crispy }}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-signup btn-lg">Book Your Spot!</button>
+  </form>
+  {% for message in messages %}
+  <div class="alert {{ message.tags }} fixed-top alert-dismissable fade show" role="alert">
+    {{ message | safe }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+
 {% for yoga_class in yoga_classes %}
 <div class="row d-none">
   <div class="col-8 offset-2">
@@ -15,19 +30,27 @@
   </div>
 </div>
 {% endfor %}
+
+{% for days in week_days %}
+          {{ days }}
+          {{ week_days[days] }}
+          {% endfor %}
+
 <div class="row">
   <div class="col-10 offset-1">
     <table class="table table-bordered">
       <thead>
         <tr class="cols">
           <th scope="col"></th>
-          <th class="day1" scope="col">Monday</th>
+          
+          <th class="day1" scope="col"></th>
           <th class="day2" scope="col">Tuesday</th>
           <th class="day3" scope="col">Wednesday</th>
           <th class="day4" scope="col">Thursday</th>
           <th class="day5" scope="col">Friday</th>
           <th class="day6" scope="col">Saturday</th>
           <th class="day7" scope="col">Sunday</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -115,12 +138,5 @@
     </table>
   </div>
 </div>
-
-<h2">Book Your Class:</h2>
-  <h3>Booking as: {{ user.username }}</h3>
-  <form method="post">
-    {{ form | crispy }}
-    {% csrf_token %}
-    <button type="submit" class="btn btn-signup btn-lg">Book Your Spot!</button>
-  </form>
+ 
   {% endblock %}
