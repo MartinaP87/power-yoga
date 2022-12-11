@@ -57,10 +57,3 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"{self.yoga_class.yoga_type}\n User {self.member.username}"
-
-# {self.days}, {self.times} {self.yoga_type}"
-# day = models.DateField(null=False, blank=False)
-#     time = models.CharField(
-#         max_length=15, choices=TIME_SLOT, default="9:00 - 10:00", null=False)
-
-    # id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')

@@ -1,8 +1,6 @@
-function table_update() {
+window.onload = function () {
     let days = document.getElementsByClassName("day")
     for (let i = 0; i < days.length; i++) {
-        console.log(i)
-        let class_id = document.getElementsByClassName("class_id")[i];
         let day = document.getElementsByClassName("day")[i];
         let time = document.getElementsByClassName("time")[i];
         let title = document.getElementsByClassName("class_title")[i];
@@ -22,7 +20,6 @@ function table_update() {
                     let correct_class = time_rows[time_row].className;
                     if (title.classList.contains(correct_class)) {
                         time_rows[time_row].innerHTML = title.innerText;
-                        console.log( time_rows[time_row].innerHTML)
                     }
                 }
             }
@@ -30,5 +27,4 @@ function table_update() {
     }
 }
 
-table_update()
 // '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal' + class_id.innerText + '">' + 
