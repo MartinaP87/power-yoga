@@ -3,15 +3,6 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from datetime import date
 
-DAY_SLOT = (
-    ("Monday", "Monday"),
-    ("Tuesday", "Tuesday"),
-    ("Wednesday", "Wednesday"),
-    ("Thursday", "Thursday"),
-    ("Friday", "Friday"),
-    ("Saturday", "Saturday"),
-    ("Sunday", "Sunday"),
-)
 TIME_SLOT = (
     ("9:00 - 10:00", "9:00 - 10:00"),
     ("10:00 - 11:00", "10:00 - 11:00"),
@@ -65,7 +56,7 @@ class Reservation(models.Model):
     approved = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.member.username
+        return f"{self.yoga_class.yoga_type}\n User {self.member.username}"
 
 # {self.days}, {self.times} {self.yoga_type}"
 # day = models.DateField(null=False, blank=False)

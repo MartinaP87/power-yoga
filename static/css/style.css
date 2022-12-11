@@ -2,7 +2,6 @@
 
 body {
     height:100vh;
-  
     background-size: cover;
     background-repeat: no-repeat;
     font-family: 'Playfair Display', serif;
@@ -46,13 +45,19 @@ a, .btn {
 button {
     color:#3e1d00;
 }
+
+.table>:not(caption)>*>* {
+    padding: 0.2rem 0.5rem;
+}
 .row {
     --bs-gutter-x: 0px;
 }
 th {
-    font-size: 1.5rem;
+    min-width: 9rem;
+    font-size: 1.3rem;
     text-align: center;
 }
+
 footer p {
     margin-top: 0;
     margin-bottom: 1rem;

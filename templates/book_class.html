@@ -42,7 +42,7 @@
 
 <div class="row">
   <div class="col-10 offset-1">
-    <table class="table table-bordered">
+    <table class="w-auto table table-bordered table-hover table-responsive">
       <thead>
         <tr class="cols">
           <th scope="col"></th>
@@ -52,86 +52,14 @@
         </tr>
       </thead>
       <tbody>
+        {% for time_slot in time_slots %}
         <tr class="rows">
-          <th scope="row">9:00 - 10:00</th>
-          <td class="day1"></td>
-          <td class="day2"></td>
-          <td class="day3"></td>
-          <td class="day4"></td>
-          <td class="day5"></td>
-          <td class="day6"></td>
-          <td class="day7"></td>
+          <th scope="row">{{ time_slot }}</th>
+          {% for days in week_days %}
+          <td class="day{{ forloop.counter }}"></td>
+          {% endfor %}
         </tr>
-        <tr class="rows">
-          <th scope="row">10:00 - 11:00</th>
-          <td class="day1"></td>
-          <td class="day2"></td>
-          <td class="day3"></td>
-          <td class="day4"></td>
-          <td class="day5"></td>
-          <td class="day6"></td>
-          <td class="day7"></td>
-        </tr>
-        <tr class="rows">
-          <th scope="row">11:00 - 12:00</th>
-          <td class="day1"></td>
-          <td class="day2"></td>
-          <td class="day3"></td>
-          <td class="day4"></td>
-          <td class="day5"></td>
-          <td class="day6"></td>
-          <td class="day7"></td>
-        </tr>
-        <tr class="rows">
-          <th scope="row">14:00 - 15:00</th>
-          <td class="day1"></td>
-          <td class="day2"></td>
-          <td class="day3"></td>
-          <td class="day4"></td>
-          <td class="day5"></td>
-          <td class="day6"></td>
-          <td class="day7"></td>
-        </tr>
-        <tr class="rows">
-          <th scope="row">15:00 - 16:00</th>
-          <td class="day1"></td>
-          <td class="day2"></td>
-          <td class="day3"></td>
-          <td class="day4"></td>
-          <td class="day5"></td>
-          <td class="day6"></td>
-          <td class="day7"></td>
-        </tr>
-        <tr class="rows">
-          <th scope="row">16:00 - 17:00</th>
-          <td class="day1"></td>
-          <td class="day2"></td>
-          <td class="day3"></td>
-          <td class="day4"></td>
-          <td class="day5"></td>
-          <td class="day6"></td>
-          <td class="day7"></td>
-        </tr>
-        <tr class="rows">
-          <th scope="row">17:00 - 18:00</th>
-          <td class="day1"></td>
-          <td class="day2"></td>
-          <td class="day3"></td>
-          <td class="day4"></td>
-          <td class="day5"></td>
-          <td class="day6"></td>
-          <td class="day7"></td>
-        </tr>
-        <tr class="rows">
-          <th scope="row">20:00 - 21:00</th>
-          <td class="day1"></td>
-          <td class="day2"></td>
-          <td class="day3"></td>
-          <td class="day4"></td>
-          <td class="day5"></td>
-          <td class="day6"></td>
-          <td class="day7"></td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
