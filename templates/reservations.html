@@ -11,7 +11,7 @@
 
 <h2>Your Reservations:</h2>
 {% for reservation in reservations %}
-{% if user.id == reservation.member.id %}
+{% if user == reservation.member %}
 <p class="d-inline">{{ reservation.yoga_class.yoga_type }}:
   {{ reservation.yoga_class.day|date:"l, d M" }} time:
   {{ reservation.yoga_class.time }}</p>
@@ -19,11 +19,6 @@
 <button type="button" class="btn btn-ligh btn-sm d-inline" data-bs-toggle="modal" data-bs-target="#modal{{ reservation.id }}">
   <p>Delete</p> 
 </button><br>
-
-
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="modal{{ reservation.id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
