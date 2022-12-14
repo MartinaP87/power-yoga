@@ -10,6 +10,7 @@ urlpatterns = [
     path('increase_available_spaces/<int:chosen_class_id>/', views.increase_available_spaces, name='increase'),
     path('fully_booked/<int:reservation_id>/', views.fully_booked, name='fully_booked'),
     path('update_approval/<int:reservation_id>/', views.update_approval, name='update_approval'),
+    path('check_double_booking/<int:reservation_id>/', views.check_double_booking, name='check_double_booking'),
 
     # path('', views.ClassDetail.as_view(), name='classes'),
     # path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),

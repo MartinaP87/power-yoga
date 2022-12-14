@@ -31,10 +31,21 @@ def book(request):
                   "11:00 - 12:00", "14:00 - 15:00",
                   "15:00 - 16:00", "16:00 - 17:00",
                   "17:00 - 18:00", "20:00 - 21:00"]
-    week_days = get_days(request)
-    yoga_classes = no_obsolete_classes(request)
-    yoga_classes_available_now = yoga_classes_available(request)
-    # allows classes to be accessable only if not in the past
+    today = date.today()
+    start = today - timedelta(days=today.weekday())
+    end = start + timedelta(days=13)
+    week_days = [start + timedelta(days=i) for i in range((end-start).days+1)]
+    yoga_classes = YogaClass.objects.filter(status=1)
+    # delete non visible classes
+    if yoga_classes:
+        for yoga_class in yoga_classes:
+            if yoga_class.day < start:
+                yoga_class.delete()
+    # allows classes to be accessable only if not in the past            
+    yoga_classes_available = []
+    for yoga_class in yoga_classes:
+        if yoga_class.day >= date.today():
+            yoga_classes_available.append(yoga_class)
     # if method is post save form
     if request.method == 'POST':
         form = ReservationForm(request.POST)
@@ -102,6 +113,7 @@ def no_obsolete_classes(request):
         for yoga_class in yoga_classes:
             if yoga_class.day < week_days[0]:
                 yoga_class.delete()
+                # return redirect('book')
     print("DA INIZIO SETTIMANA", yoga_classes)
     return yoga_classes
 
@@ -124,12 +136,11 @@ def valid_reservation(request, reservation, bookable_classes):
         new_reservation.delete()
 
 
-def check_double_booking(request, reservation):
+def check_double_booking(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id)
     current_user = request.user
-    yoga_class_users_reservations = Reservation.objects.filter(
-        yoga_class_id=reservation.yoga_class_id)
-    yoga_class_user_reservations = \
-        yoga_class_users_reservations.filter(member=current_user)
+    yoga_class_user_reservations = Reservation.objects.filter(
+        yoga_class_id=reservation.yoga_class_id, member=current_user)
     if yoga_class_user_reservations.count() > 1:
         messages.error(
                 request, "You are already booked \
@@ -140,6 +151,7 @@ def check_double_booking(request, reservation):
         updated_reservation = update_approval(
                         request, reservation.id)
         fully_booked(request, updated_reservation.id)
+    return redirect('book')
 
 
 def update_approval(request, reservation_id):
@@ -178,8 +190,8 @@ def reduce_available_spaces(request, chosen_class_id):
     updated_spaces = spaces - 1
     chosen_yoga_class.available_spaces = updated_spaces
     chosen_yoga_class.save()
-    print("CLASSE ID E SPAZIO-", chosen_yoga_class.id,
-          chosen_yoga_class.available_spaces)
+    # print("CLASSE ID E SPAZIO-", chosen_yoga_class.id,
+    #       chosen_yoga_class.available_spaces)
     return redirect('reservations')
 
 
@@ -198,6 +210,6 @@ def increase_available_spaces(request, chosen_class_id):
     updated_spaces = spaces + 1
     chosen_yoga_class.available_spaces = updated_spaces
     chosen_yoga_class.save()
-    print("CLASSE ID E SPAZIO+", chosen_yoga_class.id,
-          chosen_yoga_class.available_spaces)
+    # print("CLASSE ID E SPAZIO+", chosen_yoga_class.id,
+    #       chosen_yoga_class.available_spaces)
     return redirect('reservations')

@@ -42,7 +42,7 @@ class TestViews(TestCase):
 
         self.yoga_class_3 = YogaClass.objects.create(
             yoga_type=self.yoga_type_test,
-            day="2023-11-16",
+            day="2022-11-13",
             time="9:00 - 10:00",
             available_spaces="0",
             status="1")
@@ -85,17 +85,60 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'book_class.html')
 
-    # def check_double_booking(request, reservation):
-    # current_user = request.user
-    # yoga_class_users_reservations = Reservation.objects.filter(
-    #     yoga_class_id=reservation.yoga_class_id)
-    # yoga_class_user_reservations = \
-    #     yoga_class_users_reservations.filter(member=current_user)
-    # if yoga_class_user_reservations.count() > 1:
-    #     messages.error(
-    #             request, "You are already booked \
-    #                 in for this class!")
-    #     reservation.delete()
+        today = date.today()
+        start = today - timedelta(days=today.weekday())
+        end = start + timedelta(days=13)
+        self.assertEqual(str(today), "2022-12-14")
+        self.assertEqual(str(start), "2022-12-12")
+        self.assertEqual(str(end), "2022-12-25")
+
+        yoga_cl_1 = self.yoga_class_1
+        yoga_cl_2 = self.yoga_class_2
+        yoga_cl_3 = self.yoga_class_3
+        existing_classes = YogaClass.objects.filter(
+            available_spaces="20"
+        )
+        print("CLASSI PRIMA", existing_classes)
+        # response = self.client.post(
+        #     f'/classes/book/')
+        # print("RESP", response)
+        # new_existing_classes = YogaClass.objects.all()
+        # print("DOPO", new_existing_classes)
+
+        # deleted_class = YogaClass.objects.filter(day="2022-11-16")
+        # self.assertEqual(len(deleted_class), 0)
+        # self.assertEquals(len(existing_classes), 1)
+
+#     yoga_classes_available = []
+#     # allows classes to be accessable only if not in the past
+#     for yoga_class in yoga_classes:
+#         if yoga_class.day >= date.today():
+#             yoga_classes_available.append(yoga_class)
+#     return yoga_classes_available
+
+
+# def valid_reservation(request, reservation, bookable_classes):
+#     if reservation.yoga_class in bookable_classes:
+#         check_double_booking(request, reservation)
+#     else:
+#         messages.error(request, "This class is not longer available")
+#         new_reservation.delete()
+
+    def test_check_double_booking(self):
+        reservation_1 = self.reservation_1
+        reservation_2 = Reservation.objects.create(
+            yoga_class=self.yoga_class_1,
+            member=self.user
+        )
+        tot_reservations = Reservation.objects.filter(
+            yoga_class_id=reservation_1.yoga_class_id, member=self.user)
+        print("RES TOT", tot_reservations)
+        response = self.client.post(
+            f'/classes/check_double_booking/{reservation_2.id}/')
+        print("RESPONSE1: ", response)
+        existing_reservations = Reservation.objects.filter(
+            yoga_class_id=reservation_1.yoga_class_id, member=self.user)
+        self.assertEquals(len(existing_reservations), 1)
     # else:
     #     reserved_class_id = reservation.yoga_class_id
     #     updated_reservation = update_approval(
@@ -115,7 +158,6 @@ class TestViews(TestCase):
         reservation_not_valid = self.reservation_3
         response_2 = self.client.post(
             f'/classes/update_approval/{reservation_not_valid.id}/')
-        print("RESPONSE2: ", response_2)
         existing_reservation_2 = Reservation.objects.get(
             id=reservation_not_valid.id)
         self.assertEqual(existing_reservation_2.approved, False)
@@ -149,10 +191,8 @@ class TestViews(TestCase):
         initial_spaces = int(initial_instance.available_spaces)
         response = self.client.post(
             f'/classes/reduce_available_spaces/{initial_instance.id}/')
-        print("RESPONSE: ", response)
         updated_instance = YogaClass.objects.get(id=self.yoga_class_1.id)
         updated_spaces = int(updated_instance.available_spaces)
-        print("UP", updated_spaces)
         self.assertEqual(updated_spaces, initial_spaces - 1)
 
     def test_increase_available_spaces(self):
@@ -160,8 +200,6 @@ class TestViews(TestCase):
         initial_spaces = int(initial_instance.available_spaces)
         response = self.client.post(
             f'/classes/increase_available_spaces/{initial_instance.id}/')
-        print("RESPONSE2: ", response)
         updated_instance = YogaClass.objects.get(id=self.yoga_class_1.id)
         updated_spaces = int(updated_instance.available_spaces)
-        print("UP2", updated_spaces)
         self.assertEqual(updated_spaces, initial_spaces + 1)
