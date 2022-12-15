@@ -15,6 +15,10 @@ def home_page(request):
     return render(request, "index.html", context)
 
 
+def about(request):
+    return render(request, "about.html")
+
+
 def class_list(request):
     yoga_types_list = YogaType.objects.filter(status=1)
     context = {
