@@ -1,49 +1,86 @@
 @import url('https://fonts.googleapis.com/css2?family=Fleur+De+Leah&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
 
-body {
-    height:100vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
+/*colours*/
+body, .navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-brand, button {
     color: #3e1d00;
-    font-size: 1.3rem;
-    
-}
-.navbar {
-    font-family: 'Fleur De Leah', cursive;
-    background-color: #f8f9fa73;
-    padding-top: 0rem;
-    padding-bottom: 0rem
-}
-.navbar-nav .nav-item .nav-link,
-a, .btn {
-    font-size: 1.8rem;
-    color: #562800;
-    font-weight: bold;
-    /* color: #dacf85; */
 }
 
-.navbar-light .navbar-nav .nav-link.active,
-.navbar-light .navbar-brand {
-    color: #3e1d00;
-    font-weight: 900;
-    font-size: 1.8rem;
-    padding-left: 2rem;
+.navbar-nav .nav-item .nav-link,
+a, .btn {
+    color: #4c2504;
 }
-.navbar-light .navbar-brand {
-    font-size: 2.5rem;
+
+.navbar {
+    background-color: #f8f9fa73;
 }
-.container-fluid{
-    padding-right: var(--bs-gutter-x,0.1rem);
-    padding-left: var(--bs-gutter-x,0.3rem);
-}
+
 .opaque {
     background-color: #f8f9fa73;
 }
 
-button {
-    color:#3e1d00;
+footer p {
+    background-color: #708090a6;
+}
+/* backgouds */
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+/* fonts */
+body {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;  
+}
+
+.navbar {
+    font-family: 'Fleur De Leah', cursive;
+}
+
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-nav .nav-item .nav-link,
+a, .btn {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.h1, h1 {
+    font-size: calc(1.7rem + 1.5vw);
+}
+
+th {
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+/* sizes */
+
+body {
+    height:100vh;
+}
+
+th {
+    min-width: 9rem;
+}
+
+/* paddings and margins */
+
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-brand {
+    padding-left: 2rem;
+}
+
+.container-fluid {
+    padding-right: var(--bs-gutter-x,0.1rem);
+    padding-left: var(--bs-gutter-x,0.3rem);
+}
+
+.introduction {
+    padding-top: 10rem;
+    padding-bottom: 5rem;
 }
 
 .table>:not(caption)>*>* {
@@ -52,17 +89,9 @@ button {
 .row {
     --bs-gutter-x: 0px;
 }
-th {
-    min-width: 9rem;
-    font-size: 1.3rem;
-    text-align: center;
-}
 
-footer p {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    background-color: #708090a6;
-}
+
+/*effects*/
 .navbar-light .navbar-nav .nav-link.active:hover,
 .navbar-light .navbar-brand:hover,
 .navbar-nav .nav-item .nav-link:hover,
@@ -72,7 +101,7 @@ a:hover, .btn:hover{
 
 /*Media queries*/
 /* Responsive main image*/
-@media screen and (max-width: 915px) {
+@media screen and (max-width: 510px) {
     body {
     background-size: contain;
     }

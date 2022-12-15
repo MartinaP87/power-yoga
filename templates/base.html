@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,88 +11,91 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block additional_styles %}
- <style>
-     body {
-    background-image: url('https://res.cloudinary.com/dolts3yad/image/upload/v1670672694/car_kisjoq.jpg');
-    }
+    <style>
+        body {
+            background-image: url('https://res.cloudinary.com/dolts3yad/image/upload/v1671099878/carbkg_bqiarp.jpg');
+        }
     </style>
-{% endblock %}  
+    {% endblock %}
     <title>PowerYoga</title>
 </head>
 
-<body class="container-fluid d-flex flex-column min-vh-100 main-bg">
+<body class="container-fluid d-flex flex-column min-vh-100 main-bg gx-0">
 
     <!-- Navigation -->
 
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light py-0">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">Yoga With Carmen</a>
+            <a class="navbar-brand fs-2" href="{% url 'home' %}">Yoga With Carmen</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="justify-conten-end">
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Yoga In Pills</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'classes' %}">Classes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'blog' %}">Blog</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'book' %}">Bookings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'reservations' %}">My Reservations</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active fs-3" aria-current="home_page" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fs-3" aria-current="about_page" href="{% url 'home' %}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fs-3" aria-current="yoga_in_pills_page" href="{% url 'home' %}">Yoga In
+                                Pills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fs-3" aria-current="classes_page"
+                                href="{% url 'classes' %}">Classes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active fs-3" aria-current="blog_page" href="{% url 'blog' %}">Blog</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active fs-3" aria-current="booking_page" href="{% url 'book' %}">Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-3" aria-current="reservations_page" href="{% url 'reservations' %}">Reservations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-3" aria-current="logout_page" href="{% url 'account_logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link fs-3" aria-current="register_page" href="{% url 'account_signup' %}">Sign
+                                Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-3" aria-current="login_page" href="{% url 'account_login' %}">Login</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-        </div>
         </div>
     </nav>
 
     <main class="mb-auto">
-      
+
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}
-   
+
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="w-100">
         <p class="m-0 text-center text-white">Follow me: <i class="fab fa-facebook-square ms-3"></i>
             <i class="fab fa-twitter-square ms-3"></i>
             <i class="fab fa-instagram-square ms-3"></i>
             <i class="fab fa-youtube-square ms-3"></i></p>
     </footer>
     {% block script %}
-    <script src="{% static 'js/script.js' %}"></script> 
+    <script src="{% static 'js/script.js' %}"></script>
     {% endblock script %}
-   
-   
+
+
 </body>
 
 

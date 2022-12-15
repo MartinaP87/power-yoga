@@ -1,8 +1,88 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="main-image">
-  
+<div class="container-fluid gx-0">
+    <div class="jumbotron">
+        <h1 class="fs-big text-center pt-0">EXPAND YOUR ENERGY</h1>
+    </div>
+</div>
+<div class="container-fluid pt-5 gx-0">
+    <div class="row pt-5 pb-5 introduction align-items-end">
+        <div class="col-sm-4 pt-5 opaque">
+            <h3>YOGA WITH CARMEN</h3>
+            <p class="pt-3 px-2 fs-5 fw-bold">My aim is to help people who deal with postural problems and muscle stiffness to feel better through
+                specific exercises from the yoga tradition and much more.
+                During my classes I combine Asana and Kriya with specific stretching and strengthening
+                exercises from postural gymnastics, and dance in order to increase the benefits of all these
+                disciplines and unblock the energy flow.
+            </p>
+        </div>
+    
+        {% if todays_class %}
+        {% for class in todays_class %}
+        <!-- Callout -->
+        <div class="col-sm-4 offset-md-4 align-self-end">
+            <section class="callout text-center opaque pb-3">
+                <h3>Today's Class:</h3>
+                <p>{{ class.yoga_type }}: {{ class.time }}<br></p>
+            </section>
+        </div>
+        <!-- /callout -->
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="container-fluid alert-container gx-0">
+        <div class="row pt-3 d-none d-sm-block">
+            <div class="col-12">
+                <div class="site-wide-alert alert alert-warning text-center fs-6 p-0 mb-5">
+                    <strong>Register Now!</strong> Sign up today to start a free week trial! <a href="{% url 'account_signup' %}">Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+    <!-- Quotes -->
+    <div class="container-wrapper">
+        <div class="container quotes-container content-container">
+            <section class="quotes">
+                <div class="row">
+                    <div class="col-12 page-header">
+                        <h2 class="text-uppercase">Quotes:</h2>
+                        <hr class="block-divider block-divider--short">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="media">
+                            <div class="d-none d-sm-block">
+                                <img src="images/girl-image.png" class="rounded-circle mr-3" height=100 width=100>
+                            </div>
+                            <div class="media-body">
+                                <blockquote class="blockquote">
+                                    <p>After starting this new routine my energy and my mood drastically improved! No more laziness!</p>
+                                    <p>- Jane Doe</p>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="media">
+                            <div class="d-none d-sm-block">
+                                <img src="images/guy-image.png" class="rounded-circle mr-3" height=100 width=100>
+                            </div>
+                            <div class="media-body">
+                                <blockquote class="blockquote">
+                                    <p>It feels great to take care of yourself, body and mind!</p>
+                                    <p>- John Doe</p>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.quotes -->
+        </div>
+    </div>
+
 </div>
 
 {%endblock%}
