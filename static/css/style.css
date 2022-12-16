@@ -1,22 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Fleur+De+Leah&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Source+Sans+Pro&display=swap');
+ 
 /*colours*/
 body, .navbar-light .navbar-nav .nav-link.active,
-.navbar-light .navbar-brand, button {
+.navbar-light .navbar-brand, button,
+div.card-body, .cl-title {
     color: #3e1d00;
+    --bs-body-color: #3e1d00;
 }
 
 .navbar-nav .nav-item .nav-link,
-a, .btn {
+a, .alert a, .btn, h6,
+div.card-body button {
     color: #4c2504;
-}
-
-.navbar {
-    background-color: #f8f9fa73;
 }
 
 .opaque {
     background-color: #f8f9fa73;
+}
+.opaque2 {
+    background-color: #f8f9faa1;
 }
 
 footer p {
@@ -29,26 +31,31 @@ body {
     background-repeat: no-repeat; 
 }
 
-/* fonts */
-body {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
+/* fonts and text styles */
+body, th{
+    font-family: 'Source Serif Pro', serif;
     font-size: 1rem;  
 }
 
-.navbar {
-    font-family: 'Fleur De Leah', cursive;
+.navbar, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    text-transform: uppercase;
+   
 }
 
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-nav .nav-item .nav-link,
 a, .btn {
-    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-size: 1rem;
     font-weight: bold;
 }
 
-.h1, h1 {
-    font-size: calc(1.7rem + 1.5vw);
+h1 {
+    font-size: 2.7rem;
+}
+.text-align, h6{
+    text-align: center;
 }
 
 th {
@@ -70,7 +77,7 @@ th {
 
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-brand {
-    padding-left: 2rem;
+    padding-left: 1rem;
 }
 
 .container-fluid {
@@ -78,9 +85,13 @@ th {
     padding-left: var(--bs-gutter-x,0.3rem);
 }
 
-.introduction {
-    padding-top: 10rem;
-    padding-bottom: 5rem;
+.main-cont {
+    padding-top: 13vw;
+    
+}
+.cl-title{
+    padding-top: 5rem;
+    padding-left: 5rem;
 }
 
 .table>:not(caption)>*>* {
@@ -101,12 +112,16 @@ a:hover, .btn:hover{
 
 /*Media queries*/
 /* Responsive main image*/
-@media screen and (max-width: 510px) {
+@media screen and (max-width: 600px) {
     body {
     background-size: contain;
     }
     .navbar-light .navbar-brand {
         font-size: 2rem;
         padding-left: 1rem;
+    }
+    .main-cont {
+        padding-top: 20vh;
+        
     }
 }

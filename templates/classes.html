@@ -2,23 +2,25 @@
 {% block additional_styles %}
 <style>
     body {
-        background-image: none;
-    }
+    background-image: none;
+    
+  }
 </style>
 {% endblock %}
 
 {% block content %}
-  <h1>Classes:</h1>
-  <div class="row">
+
+      <h1 class="cl-title">Classes:</h1>
+  <div class="row justify-content-around main-cont pt-5"> 
     
     {% for yoga_type in yoga_types_list %}
-    <div class="col-4">
-      <div class="card">
+    <div class="col-md-3 col-sm-5 col-7 pt-5">
+      <div class="card border-0">
         <img class="card-img-top" src="{{ yoga_type.featured_image.url }}" alt="Card image cap">
         <div class="card-body">
-          <h3 class="card-title">{{ yoga_type.title }}</h3>
+          <h3 class="card-title text-uppercase">{{ yoga_type.title }}</h3>
           <p class="card-text">{{ yoga_type.introduction | safe }}</p>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#type{{ yoga_type.id }}">
+          <button type="button" class="btn text-uppercase fs-5 text-decoration-underline" data-bs-toggle="modal" data-bs-target="#type{{ yoga_type.id }}">
            More >>
           </button>
         </div>
@@ -33,16 +35,14 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{ yoga_type.description | safe }}    
+                {{ yoga_type.description | safe }}<br>
+                {% if user.is_authenticated %}
+                  <a href="{% url 'book' %}">Book a Class</a>
+                {% endif %}  
             </div>
           </div>
         </div>
       </div>
-
 {% endfor %}
- 
- 
-  {% if user.is_authenticated %}
-    <a href="{% url 'book' %}">Book a Class</a>
-  {% endif %}
+
 {% endblock %}
