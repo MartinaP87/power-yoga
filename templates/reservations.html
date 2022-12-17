@@ -3,22 +3,24 @@
 {% block additional_styles %}
 <style>
     body {
-    background-color: #a9db6582;
+    background-image: url('https://res.cloudinary.com/dolts3yad/image/upload/v1671270266/IMG-20221216-WA0002_i0dqc3.jpg');
   }
 </style>
 {% endblock %}
 {% block content %}
 
-<h2 class="main-cont">Your Reservations:</h2>
+<div class="container-fluid opaque2 p-5">
+<h2 class="pt-5 pb-3">Your Reservations:</h2>
 {% for reservation in reservations %}
 {% if user == reservation.member %}
-<p class="d-inline">{{ reservation.yoga_class.yoga_type }}:
+<p class="d-inline fs-3 p-5">{{ reservation.yoga_class.yoga_type }}:
   {{ reservation.yoga_class.day|date:"l, d M" }} time:
   {{ reservation.yoga_class.time }}</p>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-ligh btn-sm d-inline" data-bs-toggle="modal" data-bs-target="#modal{{ reservation.id }}">
+<button type="button" class="btn btn-ligh btn-sm d-inline text-decoration-underline" data-bs-toggle="modal" data-bs-target="#modal{{ reservation.id }}">
   <p>Delete</p> 
 </button><br>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modal{{ reservation.id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">

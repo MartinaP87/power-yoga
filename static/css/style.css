@@ -19,6 +19,10 @@ div.card-body button {
 }
 .opaque2 {
     background-color: #f8f9faa1;
+    
+}
+div .card {
+    --bs-card-bg:#f8f9faa1;
 }
 
 footer p {
@@ -97,8 +101,13 @@ th {
 .table>:not(caption)>*>* {
     padding: 0.2rem 0.5rem;
 }
+
 .row {
     --bs-gutter-x: 0px;
+}
+
+.card-pos {
+    padding-bottom: 17rem;
 }
 
 
@@ -112,10 +121,17 @@ a:hover, .btn:hover{
 
 /*Media queries*/
 /* Responsive main image*/
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 950px) {
     body {
     background-size: contain;
     }
+    .card-pos{
+      padding-top: 30rem;
+    }  
+  }
+
+@media screen and (max-width: 600px) {
+    
     .navbar-light .navbar-brand {
         font-size: 2rem;
         padding-left: 1rem;
@@ -124,4 +140,7 @@ a:hover, .btn:hover{
         padding-top: 20vh;
         
     }
+    .card-pos {
+        padding-top: 10rem;
+      }
 }
