@@ -2,21 +2,23 @@
 {% block additional_styles %}
 <style>
     body {
-        background-image: none;
+        background-image: url('https://res.cloudinary.com/dolts3yad/image/upload/v1671303239/camp-removebg-preview_tcwxuj.png');
+        background-size: contain;
+        background-color: #d1d4e3
     }
 </style>
 {% endblock %}
 
 {% block content %}
 
-
+<h1>Bolg</h1>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row pt-5">
         <!-- Blog Entries Column -->
         <div class="col-12 mt-3 left">
             <div class="row">
                 {% for post in post_list %}
-                <div class="col-md-3">
+                <div class="col-md-4 p-5 d-inline">
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="image-container">
@@ -35,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                {% if forloop.counter|divisibleby:4 %}
+                {% if forloop.counter|divisibleby:3 %}
             </div>
             <div class="row">
                 {% endif %}

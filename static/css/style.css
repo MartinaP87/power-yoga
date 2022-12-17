@@ -14,6 +14,10 @@ div.card-body button {
     color: #4c2504;
 }
 
+.grad {
+    background-image: linear-gradient(to right, #fcfdff , rgba(249, 249, 245, 0));
+  }
+
 .opaque {
     background-color: #f8f9fa73;
 }
@@ -110,6 +114,9 @@ th {
     padding-bottom: 17rem;
 }
 
+.res-cont {
+    margin: 1rem 3rem;
+}
 
 /*effects*/
 .navbar-light .navbar-nav .nav-link.active:hover,
@@ -143,4 +150,8 @@ a:hover, .btn:hover{
     .card-pos {
         padding-top: 10rem;
       }
+
+      .res-cont {
+        margin: 15rem 1rem 3rem 1rem;
+    }
 }

@@ -1,11 +1,19 @@
 {% extends 'base.html' %} 
+{% load static %}
+{% block additional_styles %}
+<style>
+  body {
+    background-image: none;
+  }
+</style>
+{% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
 
 <div class="masthead">
     <div class="container">
-        <div class="row g-0">
-            <div class="col-md-3 masthead-text">
+        <div class="row">
+            <div class="col-md-3 masthead-text mt-3">
                 <!-- Post title goes in these h1 tags -->
                 <h1 class="post-title">{{ post.title }}</h1>
                 <!-- Post author goes before the | the post's created date goes after -->
