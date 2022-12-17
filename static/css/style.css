@@ -9,7 +9,7 @@ div.card-body, .cl-title {
 }
 
 .navbar-nav .nav-item .nav-link,
-a, .alert a, .btn, h6,
+div a, .alert a, .btn, h6,
 div.card-body button {
     color: #4c2504;
 }
@@ -29,8 +29,9 @@ div .card {
     --bs-card-bg:#f8f9faa1;
 }
 
-footer p {
-    background-color: #708090a6;
+.footer-bg {
+    background-color: #4c250482;
+    /* background-color: #708090a6; */
 }
 /* backgouds */
 
@@ -122,9 +123,18 @@ th {
 .navbar-light .navbar-nav .nav-link.active:hover,
 .navbar-light .navbar-brand:hover,
 .navbar-nav .nav-item .nav-link:hover,
-a:hover, .btn:hover{
+a:hover, .btn:hover, form button:hover, p .link:hover,
+form .btn-signup:hover, form a:hover,
+p a:hover, .alert a:hover{
     color: black;
 }
+
+form button:active, p .link:active,
+form .btn-signup:active, form a:active,
+p a:active, .alert a:active {
+    color: #3e1d00;
+    box-shadow: none;
+  }
 
 /*Media queries*/
 /* Responsive main image*/

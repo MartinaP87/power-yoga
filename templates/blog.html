@@ -4,35 +4,39 @@
     body {
         background-image: url('https://res.cloudinary.com/dolts3yad/image/upload/v1671303239/camp-removebg-preview_tcwxuj.png');
         background-size: contain;
-        background-color: #d1d4e3
+        background-color: #d4b4b4;
     }
 </style>
 {% endblock %}
 
 {% block content %}
+<div class="row">
+    <div class="col-12 p-5">
+        <h1>Bolg:</h1>
+    </div>
+</div>
 
-<h1>Bolg</h1>
 <div class="container-fluid">
-    <div class="row pt-5">
+    <div class="row">
         <!-- Blog Entries Column -->
         <div class="col-12 mt-3 left">
             <div class="row">
                 {% for post in post_list %}
                 <div class="col-md-4 p-5 d-inline">
                     <div class="card mb-3">
-                        <div class="card-body">
+                        <div class="card-body p-0">
                             <div class="image-container">
                                 <img class="card-img-top" src=" {{ post.featured_image.url }}">
-                                <div class="image-flash">
+                                <div class="image-flash px-2">
                                     <p class="author">Author: {{ post.author }}</p>
                                 </div>
                             </div>
-                            <a href="{% url 'post_detail' post.slug %}" class="post-link">
-                                <h2 class="card-title">{{ post.title }}</h2>
-                                <p class="card-text">{{ post.excerpt }}</p>
+                            <a href="{% url 'post_detail' post.slug %}" class="post-link px-2">
+                                <h2 class="card-title px-2">{{ post.title }}</h2>
+                                <p class="card-text px-2">{{ post.excerpt }}</p>
                             </a>
                             <hr />
-                            <p class="card-text text-muted h6">{{ post.created_on|date:"l, d M Y" }} <i class="far fa-heart"></i>
+                            <p class="card-text text-muted p-2 ">{{ post.created_on|date:"l, d M Y" }} <i class="far fa-heart"></i>
                                 {{ post.number_of_likes }}</p>
                         </div>
                     </div>
