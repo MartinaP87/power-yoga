@@ -1,14 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import User, YogaType, YogaClass, Reservation
+from .models import User, YogaType, YogaClass, Reservation, Notes
 from django.contrib import messages
-from .forms import ReservationForm
+from .forms import ReservationForm, NotesForm
 from datetime import date, timedelta
 
 
 def home_page(request):
     todays_class = YogaClass.objects.filter(status=1, day=date.today())
-    print("OGGI CLASSE", todays_class)
     context = {
         'todays_class': todays_class
     }
@@ -29,8 +28,15 @@ def class_list(request):
 
 def reservations(request):
     reservations = Reservation.objects.all()
+    if request.method == 'POST':
+        note_form = NotesForm(request.POST)
+        if note_form.is_valid():
+            note_form.save()
+            # return redirect('reservations')
+    note_form = NotesForm()
     notes = Notes.objects.all
     context = {
+        'note_form': note_form,
         'notes': notes,
         'reservations': reservations
     }
@@ -224,35 +230,18 @@ def increase_available_spaces(request, chosen_class_id):
     return redirect('reservations')
 
 
-
-
-
-def add_note(request):
-    if request.method == 'POST':
-        note_form = NotesForm(request.POST)
-        if note_form.is_valid():
-            note_form.save()
-            return redirect('reservations')
-    note_form = NotesForm()
-    context = {
-        'note_form': notes_form
-    }
-
-    return redirect('reservations')
-
-
-def edit_notes(request, notes_id):
+def edit_note(request, note_id):
     note = get_object_or_404(Notes, id=note_id)
     if request.method == 'POST':
-        note_form = NotesForm(request.POST, instance=note)
-        if note_form.is_valid():
-            note_form.save()
+        edit_form = NotesForm(request.POST, instance=note)
+        if edit_form.is_valid():
+            edit_form.save()
             return redirect('reservations')
-    note_form = NotesForm(instance=note)
+    edit_form = NotesForm(instance=note)
     context = {
-        'note_form': note_form
+        'edit_form': edit_form
     }
-    return redirect('reservations')
+    return render(request, "bookings/edit_note.html", context)
 
 
 def delete_note(request, note_id):

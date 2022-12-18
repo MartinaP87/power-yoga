@@ -127,14 +127,14 @@ th {
 .navbar-nav .nav-item .nav-link:hover,
 a:hover, .btn:hover, form button:hover, p .link:hover,
 form .btn-signup:hover, form a:hover,
-p a:hover, .alert a:hover, p .btn:hover, a .btn:hover,
+p a:hover, .alert a:hover, p .btn:hover, div button a:hover,
 div .btn:hover{
     color: black;
 }
 
 form button:active, p .link:active,
 form .btn-signup:active, form a:active,
-p a:active, .alert a:active, p .btn:active, a .btn:active,
+p a:active, .alert a:active, p .btn:active,div button a:active,
 div .btn:active {
     color: #3e1d00;
     box-shadow: none;

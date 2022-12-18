@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block additional_styles %}
 <style>
   body {
@@ -7,12 +8,13 @@
 </style>
 {% endblock %}
 {% block content %}
-<div class="row">
-  <div class="col-12">
-    <div class="container-fluid grad res-cont">
-      <h2 class="pt-5 pb-3">Your Reservations:</h2>
-      {% for reservation in reservations %}
-      {% if user == reservation.member %}
+
+<div class="container-fluid grad res-cont">
+  <h2 class="pt-5 pb-3">Your Reservations:</h2>
+  {% for reservation in reservations %}
+  {% if user == reservation.member %}
+  <div class="row">
+    <div class="col-12">
       <p class="d-inline fs-3 p-2">{{ reservation.yoga_class.yoga_type }}:<br>
         {{ reservation.yoga_class.day|date:"l, d M" }} time:
         {{ reservation.yoga_class.time }}</p>
@@ -21,11 +23,22 @@
         data-bs-target="#modal{{ reservation.id }}">
         <p>Delete</p>
       </button><br>
+      {% for note in notes %}
+      {% if note.reservation.id == reservation.id %}
+      <div class="col-12 pt-0 pb-2">
+        <p class="d-inline">{{ note.annotation }}</p>
+        <button type="button" class="btn btn-ligh btn-sm d-inline" data-bs-dismiss="modal"><a
+            href="{% url 'edit_note' note.id %}">Edit</a></button>
+        <button type="button" class="btn btn-ligh btn-sm d-inline"><a
+            href="{% url 'delete_note' note.id %}">Delete</a></button>
+
+      </div>
+      {% endif %}
+      {% endfor %}
     </div>
   </div>
 
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="modal{{ reservation.id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -42,14 +55,30 @@
         <button type="button" class="btn btn-ligh btn-sm" data-bs-dismiss="modal">Don't Delete</button>
         <button type="button" class="btn btn-ligh btn-sm"><a href="{% url 'delete' reservation.id %}"
             class="post-link">Delete<br></a></button>
-
       </div>
     </div>
   </div>
 </div>
-
-
 {% endif %}
 {% endfor %}
+
+<div class="container m-0">
+  <div class="row my-5 p-3 grad">
+    <div class="col-3 d-inline">
+      <h2 class="d-inline">Write A Note:</h2>
+    </div>
+    <div class="col-md-auto">
+      <form method="post" class="d-inline">
+        {{ note_form | crispy }}
+        {% csrf_token %}
+    </div>
+    <div class="col col-3 d-inline">
+      <button type="submit" class="btn btn-signup btn-lg d-inline pb-0 align-self-center text-decoration-underline">Add
+        A Note</button>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}

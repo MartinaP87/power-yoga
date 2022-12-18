@@ -56,11 +56,13 @@ class Reservation(models.Model):
     approved = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.yoga_class.yoga_type}\n User {self.member.username}"
+        return f"{self.yoga_class.yoga_type}, {self.yoga_class.day} \
+            {self.yoga_class.time}"
 
 
 class Notes(models.Model):
-    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE, related_name="reservations_note")
+    reservation = models.ForeignKey(
+        Reservation, on_delete=models.CASCADE, related_name="reservation_note")
     annotation = models.CharField(
         max_length=300, blank=True, default="Remember...")
 
