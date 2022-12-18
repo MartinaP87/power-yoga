@@ -24,15 +24,17 @@ def class_list(request):
     context = {
         'yoga_types_list': yoga_types_list
     }
-    return render(request, "classes.html", context)
+    return render(request, "bookings/classes.html", context)
 
 
 def reservations(request):
     reservations = Reservation.objects.all()
+    notes = Notes.objects.all
     context = {
+        'notes': notes,
         'reservations': reservations
     }
-    return render(request, 'reservations.html', context)
+    return render(request, 'bookings/reservations.html', context)
 
 
 def book(request):
@@ -102,7 +104,7 @@ def book(request):
         'yoga_classes': yoga_classes,
         'form': form
     }
-    return render(request, 'book_class.html', context)
+    return render(request, 'bookings/book_class.html', context)
 
 
 # def get_days(request):
@@ -219,4 +221,41 @@ def increase_available_spaces(request, chosen_class_id):
     chosen_yoga_class.save()
     print("CLASSE ID E SPAZIO+", chosen_yoga_class.id,
           chosen_yoga_class.available_spaces)
+    return redirect('reservations')
+
+
+
+
+
+def add_note(request):
+    if request.method == 'POST':
+        note_form = NotesForm(request.POST)
+        if note_form.is_valid():
+            note_form.save()
+            return redirect('reservations')
+    note_form = NotesForm()
+    context = {
+        'note_form': notes_form
+    }
+
+    return redirect('reservations')
+
+
+def edit_notes(request, notes_id):
+    note = get_object_or_404(Notes, id=note_id)
+    if request.method == 'POST':
+        note_form = NotesForm(request.POST, instance=note)
+        if note_form.is_valid():
+            note_form.save()
+            return redirect('reservations')
+    note_form = NotesForm(instance=note)
+    context = {
+        'note_form': note_form
+    }
+    return redirect('reservations')
+
+
+def delete_note(request, note_id):
+    note = get_object_or_404(Notes, id=note_id)
+    note.delete()
     return redirect('reservations')

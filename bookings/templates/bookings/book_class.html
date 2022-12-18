@@ -29,13 +29,6 @@
 </div>
   </div>
 
-  {% for message in messages %}
-  <div class="alert {{ message.tags }} fixed-top alert-dismissable fade show" role="alert">
-    {{ message | safe }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endfor %}
-
   {% for yoga_class in yoga_classes %}
   <div class="row d-none">
     <div class="col-8 offset-2">

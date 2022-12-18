@@ -57,3 +57,12 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"{self.yoga_class.yoga_type}\n User {self.member.username}"
+
+
+class Notes(models.Model):
+    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE, related_name="reservations_note")
+    annotation = models.CharField(
+        max_length=300, blank=True, default="Remember...")
+
+    def __str__(self):
+        return f"{self.reservation}\n  {self.annotation}"

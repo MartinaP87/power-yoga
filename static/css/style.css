@@ -10,8 +10,10 @@ div.card-body, .cl-title {
 
 .navbar-nav .nav-item .nav-link,
 div a, .alert a, .btn, h6,
-div.card-body button {
+div.card-body button, p .btn, a .btn,
+div .btn {
     color: #4c2504;
+    --bs-btn-color: #4c2504;
 }
 
 .grad {
@@ -125,13 +127,15 @@ th {
 .navbar-nav .nav-item .nav-link:hover,
 a:hover, .btn:hover, form button:hover, p .link:hover,
 form .btn-signup:hover, form a:hover,
-p a:hover, .alert a:hover{
+p a:hover, .alert a:hover, p .btn:hover, a .btn:hover,
+div .btn:hover{
     color: black;
 }
 
 form button:active, p .link:active,
 form .btn-signup:active, form a:active,
-p a:active, .alert a:active {
+p a:active, .alert a:active, p .btn:active, a .btn:active,
+div .btn:active {
     color: #3e1d00;
     box-shadow: none;
   }
