@@ -29,10 +29,10 @@ def post_detail(request, slug):
             comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
-            commented = True
             messages.success(
                 request, 'You successfully left a comment.<br>\
                 Your comment is waiting for approval.')
+            commented = True
         else:
             comment_form = CommentForm()
     context = {
@@ -43,9 +43,6 @@ def post_detail(request, slug):
                 "comment_form": comment_form,
             }
     return render(request, "yoga_blog/post_detail.html", context)
-
-
-
 
 
 def post_like(request, slug):

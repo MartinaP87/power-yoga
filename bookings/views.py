@@ -7,6 +7,9 @@ from datetime import date, timedelta
 
 
 def home_page(request):
+    """
+    Renders home page and today's class/es.
+    """
     todays_class = YogaClass.objects.filter(status=1, day=date.today())
     context = {
         'todays_class': todays_class
@@ -15,10 +18,16 @@ def home_page(request):
 
 
 def about(request):
+    """
+    Renders about page.
+    """
     return render(request, "about.html")
 
 
 def class_list(request):
+    """
+    Renders classes and passes classes list to the template.
+    """
     yoga_types_list = YogaType.objects.filter(status=1)
     context = {
         'yoga_types_list': yoga_types_list
@@ -27,12 +36,17 @@ def class_list(request):
 
 
 def reservations(request):
+    """
+    Renders reservations and passes the reservations to the template.
+    Renders Notes form and handles validation to create a new note.
+    Passes all notes to the template.
+    """
     reservations = Reservation.objects.all()
     if request.method == 'POST':
         note_form = NotesForm(request.POST)
         if note_form.is_valid():
             note_form.save()
-            # return redirect('reservations')
+            return redirect('reservations')
     note_form = NotesForm()
     notes = Notes.objects.all
     context = {
@@ -44,6 +58,12 @@ def reservations(request):
 
 
 def book(request):
+    """
+    Renders book_class and passes classes to the template.
+    Passes days and time_slots to the
+    template to create and update calendar.
+    Renders Reservation form and handles validation.
+    """
     time_slots = ["9:00 - 10:00", "10:00 - 11:00",
                   "11:00 - 12:00", "14:00 - 15:00",
                   "15:00 - 16:00", "16:00 - 17:00",
@@ -53,22 +73,34 @@ def book(request):
     end = start + timedelta(days=13)
     week_days = [start + timedelta(days=i) for i in range((end-start).days+1)]
     yoga_classes = YogaClass.objects.filter(status=1)
-    # delete non visible classes
+    """
+    Deletes classes from the week before the current one.
+    """
     if yoga_classes:
         for yoga_class in yoga_classes:
             if yoga_class.day < start:
                 yoga_class.delete()
-    # allows classes to be accessable only if not in the past
+    """
+    Allows classes to be accessable only if not older than today.
+    """
     yoga_classes_available = []
     for yoga_class in yoga_classes:
         if yoga_class.day >= date.today():
             yoga_classes_available.append(yoga_class)
-    # if method is post save form
+    """
+    If method is post, it saves the form.
+    """
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
             form.instance.member_id = request.user.id
             new_reservation = form.save()
+            """
+            If the new reservation is in the correct timeframe,
+            checks if the user has already a reservation for the
+            same class. If so, deletes reservation and displays a
+            message.
+            """
             # valid_reservation(
             #     request, new_reservation, yoga_classes_available)
             if new_reservation.yoga_class in yoga_classes_available:
@@ -83,6 +115,12 @@ def book(request):
                                     in for this class!")
                         new_reservation.delete()
                     else:
+                        """
+                        Checks if the class has available spaces.
+                        If so, saves the reservation, and
+                        calls reduce_available_spaces function;
+                        otherwise deletes reservation and displays a message.
+                        """
                         reserved_class_id = new_reservation.yoga_class_id
                 # ---updated_reservation = update_approval(
                 #     request, new_reservation)
@@ -101,6 +139,10 @@ def book(request):
     fully booked, choose another class!')
                             new_reservation.delete()
             else:
+                """
+                If the new reservation is not in the correct timeframe,
+                displays a message and deletes reservation.
+                """
                 messages.error(request, "This class is not longer available")
                 new_reservation.delete()
     form = ReservationForm()
@@ -199,6 +241,10 @@ def book(request):
 
 
 def reduce_available_spaces(request, chosen_class_id):
+    """
+    Reduces by 1 the number of available spaces of a yoga class
+    every time it's  called.
+    """
     queryset = YogaClass.objects.filter(status=1)
     chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)
     spaces = int(chosen_yoga_class.available_spaces)
@@ -211,6 +257,10 @@ def reduce_available_spaces(request, chosen_class_id):
 
 
 def delete_reservation(request, reservation_id):
+    """
+    Called when the user deletes a valid reservation.
+    Triggers the increase_available_spaces function.
+    """
     reservation = get_object_or_404(Reservation, id=reservation_id)
     reserved_class_id = reservation.yoga_class_id
     reservation.delete()
@@ -219,6 +269,10 @@ def delete_reservation(request, reservation_id):
 
 
 def increase_available_spaces(request, chosen_class_id):
+    """
+    Increases by 1 the number of available spaces of a yoga class
+    every time it's  called.
+    """
     queryset = YogaClass.objects.filter(status=1)
     chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)
     spaces = int(chosen_yoga_class.available_spaces)
@@ -231,6 +285,10 @@ def increase_available_spaces(request, chosen_class_id):
 
 
 def edit_note(request, note_id):
+    """
+    Renders edit_form, and pass edit form to
+    edit_form template allowing the user to update notes.
+    """
     note = get_object_or_404(Notes, id=note_id)
     if request.method == 'POST':
         edit_form = NotesForm(request.POST, instance=note)
@@ -245,6 +303,9 @@ def edit_note(request, note_id):
 
 
 def delete_note(request, note_id):
+    """
+    Deletes note.
+    """
     note = get_object_or_404(Notes, id=note_id)
     note.delete()
     return redirect('reservations')

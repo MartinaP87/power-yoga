@@ -1,13 +1,15 @@
 window.onload = function () {
-
-    let myTimeout = setTimeout(closeMsg, 3000);
+    // Alert messages timeout function
+    let myTimeout = setTimeout(closeMsg, 2000);
     function closeMsg() {
         let messages = document.getElementById("msg");
         let alert = new bootstrap.Alert(messages);
         alert.close();
+        messages.delete()
+        messages.alert('dispose');
     }
     
-    
+    // Display classes in calendar according to day and time slot
     function displayClasses() {
         let days = document.getElementsByClassName("day")
         for (let i = 0; i < days.length; i++) {
@@ -36,9 +38,7 @@ window.onload = function () {
             }
         }
     }
-
+    // Call functions
     myTimeout
     displayClasses()
 }
-
-// '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal' + class_id.innerText + '">' + 

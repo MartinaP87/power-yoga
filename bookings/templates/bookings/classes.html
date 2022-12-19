@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% block additional_styles %}
+<!-- Page background -->
 <style>
   body {
     background-image: url('https://res.cloudinary.com/dolts3yad/image/upload/v1671269864/car19_dafxbq.jpg');
   }
-
 </style>
 {% endblock %}
 
 {% block content %}
+<!-- Header -->
 <div class="row p-5 mt-5">
   <div class="col-12">
     <h1>My Classes:</h1>
   </div>
 </div>
-
+<!-- Yoga types cards -->
 <div class="row row-cl justify-content-around card-pos">
   {% for yoga_type in yoga_types_list %}
   <div class="col-md-3 col-7">
