@@ -5,6 +5,9 @@ from .forms import CommentForm
 
 
 def post_list(request):
+    """
+    Renders about page and passes the post list to the template.
+    """
     post_list = Post.objects.filter(status=1).order_by("-created_on")
     context = {
         'post_list': post_list
@@ -13,6 +16,12 @@ def post_list(request):
 
 
 def post_detail(request, slug):
+    """
+    Renders post detail and passes posts, comments,
+    comment form, and likes to the template.
+    Handles comment form validation and sends a message
+    to the user when the form is submitted successfully.
+    """
     queryset = Post.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
     comments = post.comments.filter(approved=True).order_by("-created_on")
@@ -46,6 +55,10 @@ def post_detail(request, slug):
 
 
 def post_like(request, slug):
+    """
+    Toggles likes; It removes the like if it already
+    exists or adds the like if previously not applied.
+    """
     post = get_object_or_404(Post, slug=slug)
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)

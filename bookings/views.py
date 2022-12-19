@@ -8,7 +8,7 @@ from datetime import date, timedelta
 
 def home_page(request):
     """
-    Renders home page and today's class/es.
+    It renders the home page and today's class.
     """
     todays_class = YogaClass.objects.filter(status=1, day=date.today())
     context = {
@@ -19,14 +19,14 @@ def home_page(request):
 
 def about(request):
     """
-    Renders about page.
+    It renders the about page.
     """
     return render(request, "about.html")
 
 
 def class_list(request):
     """
-    Renders classes and passes classes list to the template.
+    It renders classes and passes the class list to the template.
     """
     yoga_types_list = YogaType.objects.filter(status=1)
     context = {
@@ -37,9 +37,11 @@ def class_list(request):
 
 def reservations(request):
     """
-    Renders reservations and passes the reservations to the template.
-    Renders Notes form and handles validation to create a new note.
-    Passes all notes to the template.
+    It renders reservations and passes the
+    reservations to the template.
+    It renders Notes form and handles
+    validation to create a new note.
+    It passes all notes to the template.
     """
     reservations = Reservation.objects.all()
     if request.method == 'POST':
@@ -59,10 +61,10 @@ def reservations(request):
 
 def book(request):
     """
-    Renders book_class and passes classes to the template.
-    Passes days and time_slots to the
-    template to create and update calendar.
-    Renders Reservation form and handles validation.
+    It renders book_class and passes classes to the template.
+    It passes days and time_slots to the
+    template to create and update the calendar.
+    It renders the Reservation form and handles validation.
     """
     time_slots = ["9:00 - 10:00", "10:00 - 11:00",
                   "11:00 - 12:00", "14:00 - 15:00",
@@ -74,21 +76,21 @@ def book(request):
     week_days = [start + timedelta(days=i) for i in range((end-start).days+1)]
     yoga_classes = YogaClass.objects.filter(status=1)
     """
-    Deletes classes from the week before the current one.
+    It deletes classes from the week before the current one.
     """
     if yoga_classes:
         for yoga_class in yoga_classes:
             if yoga_class.day < start:
                 yoga_class.delete()
     """
-    Allows classes to be accessable only if not older than today.
+    It allows classes to be accessible only if not older than today.
     """
     yoga_classes_available = []
     for yoga_class in yoga_classes:
         if yoga_class.day >= date.today():
             yoga_classes_available.append(yoga_class)
     """
-    If method is post, it saves the form.
+    If the method is post, it saves the form.
     """
     if request.method == 'POST':
         form = ReservationForm(request.POST)
@@ -97,9 +99,9 @@ def book(request):
             new_reservation = form.save()
             """
             If the new reservation is in the correct timeframe,
-            checks if the user has already a reservation for the
-            same class. If so, deletes reservation and displays a
-            message.
+            it checks if the user already has a reservation
+            for the same class; if so, it deletes the
+            reservation and displays a  message.
             """
             # valid_reservation(
             #     request, new_reservation, yoga_classes_available)
@@ -111,15 +113,15 @@ def book(request):
                         member=current_user)
                     if yoga_class_user_reservations.count() > 1:
                         messages.error(
-                                request, "You are already booked \
-                                    in for this class!")
+                                request, "You already booked \
+                                    in this class!")
                         new_reservation.delete()
                     else:
                         """
-                        Checks if the class has available spaces.
-                        If so, saves the reservation, and
+                        It checks if the class has available spaces;
+                        if so, it saves the reservation, and
                         calls reduce_available_spaces function;
-                        otherwise deletes reservation and displays a message.
+                        otherwise, it deletes the reservation and displays a message.
                         """
                         reserved_class_id = new_reservation.yoga_class_id
                 # ---updated_reservation = update_approval(
@@ -135,8 +137,8 @@ def book(request):
                             return redirect('reservations')
                         else:
                             messages.error(
-                                request, 'Unfortunately the class is \
-    fully booked, choose another class!')
+                                request, 'Unfortunately, this class is \
+    fully booked. Choose another class!')
                             new_reservation.delete()
             else:
                 """
@@ -242,8 +244,8 @@ def book(request):
 
 def reduce_available_spaces(request, chosen_class_id):
     """
-    Reduces by 1 the number of available spaces of a yoga class
-    every time it's  called.
+    It reduces by one the number of available spaces in a yoga class
+    every time it's called.
     """
     queryset = YogaClass.objects.filter(status=1)
     chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)
@@ -258,8 +260,8 @@ def reduce_available_spaces(request, chosen_class_id):
 
 def delete_reservation(request, reservation_id):
     """
-    Called when the user deletes a valid reservation.
-    Triggers the increase_available_spaces function.
+    It's called when the user deletes a valid reservation.
+    It triggers the increase_available_spaces function.
     """
     reservation = get_object_or_404(Reservation, id=reservation_id)
     reserved_class_id = reservation.yoga_class_id
@@ -270,8 +272,8 @@ def delete_reservation(request, reservation_id):
 
 def increase_available_spaces(request, chosen_class_id):
     """
-    Increases by 1 the number of available spaces of a yoga class
-    every time it's  called.
+    It increases by one the number of available spaces in a yoga class
+    every time it's called.
     """
     queryset = YogaClass.objects.filter(status=1)
     chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)
@@ -286,8 +288,8 @@ def increase_available_spaces(request, chosen_class_id):
 
 def edit_note(request, note_id):
     """
-    Renders edit_form, and pass edit form to
-    edit_form template allowing the user to update notes.
+    It renders edit_form and passes the edit form to
+    the edit_form template allowing the user to update notes.
     """
     note = get_object_or_404(Notes, id=note_id)
     if request.method == 'POST':
@@ -304,7 +306,7 @@ def edit_note(request, note_id):
 
 def delete_note(request, note_id):
     """
-    Deletes note.
+    It deletes note.
     """
     note = get_object_or_404(Notes, id=note_id)
     note.delete()
