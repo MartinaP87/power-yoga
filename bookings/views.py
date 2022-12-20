@@ -121,7 +121,8 @@ def book(request):
                         It checks if the class has available spaces;
                         if so, it saves the reservation, and
                         calls reduce_available_spaces function;
-                        otherwise, it deletes the reservation and displays a message.
+                        otherwise, it deletes the reservation and displays
+                        a message.
                         """
                         reserved_class_id = new_reservation.yoga_class_id
                 # ---updated_reservation = update_approval(
