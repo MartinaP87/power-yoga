@@ -95,10 +95,10 @@ th {
     padding-left: var(--bs-gutter-x,0.3rem);
 }
 
-.main-cont {
-    padding-top: 13vw;
-    
+.main-cont, .main-cont-about {
+    padding-top: 10vw;
 }
+
 .cl-title{
     padding-top: 5rem;
     padding-left: 5rem;
@@ -140,14 +140,18 @@ div .btn:active, span a:active {
   }
 
 /*Media queries*/
-
+@media screen and (max-width: 1200px) {
+    .main-cont-about {
+        padding-top: 30vw;
+    }
+}
 @media screen and (max-width: 950px) {
     body {
     background-size: contain;
     }
     .card-pos{
       padding-top: 30rem;
-    }  
+    }
   }
 
 @media screen and (max-width: 600px) {

@@ -28,8 +28,6 @@
       </button><br>
     </div>
   </div>
-
-
   <!-- Notes -->
   {% for note in notes %}
   {% if note.reservation.id == reservation.id %}
@@ -43,9 +41,6 @@
       Delete
     </button><br>
   </div>
-
-
-
   <!-- Modal Delete Note-->
   <div class="modal fade" id="modal-note{{ note.id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -67,8 +62,6 @@
   </div>
   {% endif %}
   {% endfor %}
-
-
   <!-- Modal Delete Reservation-->
   <div class="modal fade" id="modal-res{{ reservation.id }}" tabindex="-1" aria-labelledby="modalLabel"
     aria-hidden="true">

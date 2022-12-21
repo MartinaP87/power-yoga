@@ -44,13 +44,15 @@ def reservations(request):
     It passes all notes to the template.
     """
     reservations = Reservation.objects.all()
+    note_form = NotesForm()
+    note_form.fields["reservation"].queryset = Reservation.objects.filter(
+                member=request.user)
     if request.method == 'POST':
         note_form = NotesForm(request.POST)
         if note_form.is_valid():
             note_form.save()
             return redirect('reservations')
-    note_form = NotesForm()
-    notes = Notes.objects.all
+    notes = Notes.objects.all()
     context = {
         'note_form': note_form,
         'notes': notes,
@@ -70,25 +72,9 @@ def book(request):
                   "11:00 - 12:00", "14:00 - 15:00",
                   "15:00 - 16:00", "16:00 - 17:00",
                   "17:00 - 18:00", "20:00 - 21:00"]
-    today = date.today()
-    start = today - timedelta(days=today.weekday())
-    end = start + timedelta(days=13)
-    week_days = [start + timedelta(days=i) for i in range((end-start).days+1)]
-    yoga_classes = YogaClass.objects.filter(status=1)
-    """
-    It deletes classes from the week before the current one.
-    """
-    if yoga_classes:
-        for yoga_class in yoga_classes:
-            if yoga_class.day < start:
-                yoga_class.delete()
-    """
-    It allows classes to be accessible only if not older than today.
-    """
-    yoga_classes_available = []
-    for yoga_class in yoga_classes:
-        if yoga_class.day >= date.today():
-            yoga_classes_available.append(yoga_class)
+    week_days = get_days(request)
+    yoga_classes = no_obsolete_classes(request)
+    yoga_classes_available = yoga_classes_available_now(request)
     """
     If the method is post, it saves the form.
     """
@@ -97,57 +83,9 @@ def book(request):
         if form.is_valid():
             form.instance.member_id = request.user.id
             new_reservation = form.save()
-            """
-            If the new reservation is in the correct timeframe,
-            it checks if the user already has a reservation
-            for the same class; if so, it deletes the
-            reservation and displays a  message.
-            """
-            # valid_reservation(
-            #     request, new_reservation, yoga_classes_available)
-            if new_reservation.yoga_class in yoga_classes_available:
-                if request.user.id == new_reservation.member.id:
-                    current_user = request.user
-                    yoga_class_user_reservations = Reservation.objects.filter(
-                        yoga_class_id=new_reservation.yoga_class_id,
-                        member=current_user)
-                    if yoga_class_user_reservations.count() > 1:
-                        messages.error(
-                                request, "You already booked \
-                                    in this class!")
-                        new_reservation.delete()
-                    else:
-                        """
-                        It checks if the class has available spaces;
-                        if so, it saves the reservation, and
-                        calls reduce_available_spaces function;
-                        otherwise, it deletes the reservation and displays
-                        a message.
-                        """
-                        reserved_class_id = new_reservation.yoga_class_id
-                # ---updated_reservation = update_approval(
-                #     request, new_reservation)
-                        queryset = YogaClass.objects.filter(status=1)
-                        chosen_yoga_class = get_object_or_404(
-                            queryset, id=reserved_class_id)
-                        if chosen_yoga_class.available_spaces > 0:
-                            new_reservation.approved
-                            new_reservation.save()
-                            reduce_available_spaces(
-                                request, reserved_class_id)
-                            return redirect('reservations')
-                        else:
-                            messages.error(
-                                request, 'Unfortunately, this class is \
-    fully booked. Choose another class!')
-                            new_reservation.delete()
-            else:
-                """
-                If the new reservation is not in the correct timeframe,
-                displays a message and deletes reservation.
-                """
-                messages.error(request, "This class is not longer available")
-                new_reservation.delete()
+            valid_reservation(
+                request, new_reservation, yoga_classes_available)
+            return redirect('reservations')
     form = ReservationForm()
     context = {
         'time_slots': time_slots,
@@ -158,89 +96,117 @@ def book(request):
     return render(request, 'bookings/book_class.html', context)
 
 
-# def get_days(request):
-#     today = date.today()
-#     start = today - timedelta(days=today.weekday())
-#     end = start + timedelta(days=13)
-#     dates = [start + timedelta(days=i) for i in range((end-start).days+1)]
-#     return (dates)
+def get_days(request):
+    """
+    It sets the timeframe for the calendar and
+    the classes that will be displayed.
+    """
+    today = date.today()
+    start = today - timedelta(days=today.weekday())
+    end = start + timedelta(days=13)
+    dates = [start + timedelta(days=i) for i in range((end-start).days+1)]
+    return (dates)
 
 
-# def no_obsolete_classes(request):
-#     week_days = get_days(request)
-#     yoga_classes = YogaClass.objects.filter(status=1)
-#     if yoga_classes:
-#         for yoga_class in yoga_classes:
-#             if yoga_class.day < week_days[0]:
-#                 yoga_class.delete()
-#                 # return redirect('book')
-#     print("DA INIZIO SETTIMANA", yoga_classes)
-#     return yoga_classes
+def no_obsolete_classes(request):
+    """
+    It deletes classes from the week before the current one.
+    """
+    week_days = get_days(request)
+    yoga_classes = YogaClass.objects.filter(status=1)
+    if yoga_classes:
+        for yoga_class in yoga_classes:
+            if yoga_class.day < week_days[0]:
+                yoga_class.delete()
+    print("DA INIZIO SETTIMANA", yoga_classes)
+    return yoga_classes
 
 
-# def yoga_classes_available(request):
-#     yoga_classes = no_obsolete_classes(request)
-#     yoga_classes_available = []
-#     # allows classes to be accessable only if not in the past
-#     for yoga_class in yoga_classes:
-#         if yoga_class.day >= date.today():
-#             yoga_classes_available.append(yoga_class)
-#     return yoga_classes_available
+def yoga_classes_available_now(request):
+    """
+    It allows classes to be accessible only if not older than today.
+    """
+    yoga_classes = no_obsolete_classes(request)
+    yoga_classes_available = []
+    for yoga_class in yoga_classes:
+        if yoga_class.day >= date.today():
+            yoga_classes_available.append(yoga_class)
+    return yoga_classes_available
 
 
-# def valid_reservation(request, reservation, bookable_classes):
-#     if reservation.yoga_class in bookable_classes:
-#         check_double_booking(request, reservation.id)
-#     else:
-#         messages.error(request, "This class is not longer available")
-#         new_reservation.delete()
+def valid_reservation(request, reservation, bookable_classes):
+    """
+    Checks if the new reservation is in the correct timeframe,
+    otherwise it displays a message and deletes reservation.
+    """
+    if reservation.yoga_class in bookable_classes:
+        check_double_booking(request, reservation.id)
+    else:
+        messages.error(request, "This class is not longer available")
+        reservation.delete()
 
 
-# def check_double_booking(request, reservation_id):
-#     reservation = get_object_or_404(Reservation, id=reservation_id)
-#     current_user = request.user
-#     yoga_class_user_reservations = Reservation.objects.filter(
-#         yoga_class_id=reservation.yoga_class_id, member=current_user)
-#     if yoga_class_user_reservations.count() > 1:
-#         messages.error(
-#                 request, "You are already booked \
-#                     in for this class!")
-#         reservation.delete()
-#     else:
-#         reserved_class_id = reservation.yoga_class_id
-#         updated_reservation = update_approval(
-#                         request, reservation.id)
-#         fully_booked(request, updated_reservation.id)
-#     return redirect('book')
+def check_double_booking(request, reservation_id):
+    """
+    It checks if the user already has a reservation
+    for the same class; if so, it deletes the
+    reservation and displays a  message.
+    """
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+    current_user = request.user
+    yoga_class_user_reservations = Reservation.objects.filter(
+        yoga_class_id=reservation.yoga_class_id, member=current_user)
+    if yoga_class_user_reservations.count() > 1:
+        messages.error(
+                request, "You are already booked \
+                    in for this class!")
+        reservation.delete()
+    else:
+        reserved_class_id = reservation.yoga_class_id
+        updated_reservation = update_approval(
+                        request, reservation.id)
+        fully_booked(request, updated_reservation.id)
 
 
-# def update_approval(request, reservation_id):
-#     reservation = get_object_or_404(Reservation, id=reservation_id)
-#     reserved_class_id = reservation.yoga_class_id
-#     queryset = YogaClass.objects.filter(status=1)
-#     chosen_yoga_class = get_object_or_404(queryset, id=reserved_class_id)
-#     if chosen_yoga_class.available_spaces > 0:
-#         reservation.approved
-#         reservation.save()
-#     else:
-#         reservation.approved = False
-#         reservation.save()
-#     return reservation
-    # return reservation
+def update_approval(request, reservation_id):
+    """
+    It checks if the class has available spaces;
+    if so, it saves the reservation as approved
+    otherwise, the reservation's approved status is
+    set to False.
+    """
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+    reserved_class_id = reservation.yoga_class_id
+    queryset = YogaClass.objects.filter(status=1)
+    chosen_yoga_class = get_object_or_404(queryset, id=reserved_class_id)
+    if chosen_yoga_class.available_spaces > 0:
+        reservation.approved
+        reservation.save()
+    else:
+        reservation.approved = False
+        reservation.save()
+    return reservation
 
 
-# def fully_booked(request, reservation_id):
-#     reservation = get_object_or_404(Reservation, id=reservation_id)
-#     if reservation.approved:
-#         reduce_available_spaces(
-#             request, reservation.yoga_class_id)
-#         return redirect('reservations')
-#     else:
-#         messages.error(
-#             request, 'Unfortunately the class is \
-# fully booked, choose another class!')
-#         reservation.delete()
-#         return redirect('book')
+def fully_booked(request, reservation_id):
+    """
+    It checks if the class is approved;
+    if so, it calls reduce_available_spaces function;
+    otherwise, it deletes the reservation and displays
+    a message.
+    """
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+    if reservation.approved:
+        reduce_available_spaces(
+            request, reservation.yoga_class_id)
+        print("GIRO FINITO")
+        return redirect('reservations')
+    else:
+        messages.error(
+            request, 'Unfortunately the class is \
+fully booked, choose another class!')
+        reservation.delete()
+        return redirect('book')
 
 
 def reduce_available_spaces(request, chosen_class_id):
