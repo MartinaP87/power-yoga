@@ -257,12 +257,14 @@ def edit_note(request, note_id):
     the edit_form template allowing the user to update notes.
     """
     note = get_object_or_404(Notes, id=note_id)
+    edit_form = NotesForm(instance=note)
+    edit_form.fields["reservation"].queryset = Reservation.objects.filter(
+                member=request.user)
     if request.method == 'POST':
         edit_form = NotesForm(request.POST, instance=note)
         if edit_form.is_valid():
             edit_form.save()
             return redirect('reservations')
-    edit_form = NotesForm(instance=note)
     context = {
         'edit_form': edit_form
     }

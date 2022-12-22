@@ -37,9 +37,7 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - This section provides the  user feedback about the course;
 - It motivates the user to subscribe and participate in the classes.
 
-- At the very bottom, there is a footer with social network links;
-
-### The Footer
+### Footer
  <img src ="">
 
 - The footer section includes links to Carmen's social media sites;
@@ -50,58 +48,135 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 ### Yoga Benefits Section
  <img src ="">
 
-- This section explains to the user the additional values yoga can bring to their life;
+- This section explains to the user the additional values yoga can bring to their life.
 
-### About Page
+### My Passion For Yoga Section
+<img src ="">
+
+- Describes Carmen's first steps into yoga discipline and the journey that brought her to become a yoga teacher;
+- The experience presented in the section gives the user the feel of a human connection since he can now relate to Carmen as a real person.
+
+### Yoga Class Section
+<img src ="">
+
+- This section has an image to allow the user to have a visual acknowledgment of the exercises practiced in the class;
+- This section has a button that opens a modal whit the full description of what the class involves to allow the user to understand which yoga type suits them best;
+- The modal contains a button that redirects the user to the booking page;
+- If the user is not signed in, the button in the modal doesn't display.
+
+### Post Section
 <img src="">
-The page describes the benefits of yoga;
-It gives an insight into what moved Carmen to this discipline and how yoga affects her life.
+
+- This section has an image to allow the user to have a visual acknowledgment of what the post is about;
+- It has a title that links to the specific page of the post;
+- Under the title is displayed the date when the post was published and the number of likes.
+
+### Post Page Title Section
+<img src="">
+
+- This section displays the title of the post on which the user previously clicked;
+- Under the title, it displays the username of the publisher and the date when the post was published.
+
+### Post Page Content Sction
+<img src="">
+
+- This section displays the content of the post that the user chose.
+
+### Like Section
+<img src="">
+
+- This section displays the number of likes that the relevant post received;
+- If signed in, the user can click on the heart icon to leave a like and click again to remove it;
+- This section adds interactivity to the website and allows to leave effortless feedback to show appreciation;
+- If not signed in, the user can only view the likes, and clicking on the icon won't have any effect.
+
+### Messages Section
+<img src="">
+
+- This section displays the number of comments that the relevant post received.
+
+### Comments Section
+<img src="">
+
+- This section displays the approved comments written by the admin and users, along with the username and date related to them;
+- The comments are ordered by date, with the most recent at the top;
+- This section allows the user easily follow the conversation.
+
+### Comments Form Section
+<img src="">
+
+- This section displays a form that allows the user to leave feedback;
+- Through this section, the user can interact with other users;
+- Once the comment is submitted, the user receives feedback about the successful submission and the approval status.
 
 
-### Input Section
-<img src="readme-images/input.png">
+### Booking Form Section
+<img src="">
 
-- This section requests the user to enter the expense value to be registered or the budget's value to be set.
-- If the input choice is not a positive number, the program displays a customized message error.
+- This section displays a form to make a reservation for a class;
+- The dropdown menu displays the classes present on the calendar, and the user can choose from them;
+- Once the form is submitted, the user receives feedback on whether the booking has been successful or not, and in that case, it explains the reason for the failure.
+
+### Calendar Section
+<img src="">
+
+- This section displays a table with the time slots and the days of the current and next week;
+- The days row updates automatically so that the current week is always close-up;
+- Every time a class is published is displayed on the calendar in the relevant cell;
+- This disposition facilitates the view of the classes for a better time planning for the user.
+
+### Reservations Section
+<img src="">
+
+- This section displays the classes booked by the logged-in user and the relative details;
+- If the user leaves a note about a class, it displays under the relevant reservation;
+- Every reservation has a delete button that, when clicked, calls a modal to receive confirmation of deletion;
+- This section is a reminder for the user of the booked classes.
+
+### Notes Section
+<img src="">
+
+- This section displays notes written by the user;
+- Every note is under the reservation it refers to;
+- This section is private, so only the logged-in user can access it;
+- Next to each note, there is an edit button that links to an edit note page;
+- Next to the edit button, there is a delete button that, when clicked, calls a modal to confirm the deletion.
+
+### Add Notes Section
+<img src="">
+
+- This section displays a form that allows the user to add a note to a reservation;
+- The user can choose the reservation to comment on from a dropdown menu.
+
+### Edit Notes Section
+<img src="">
+
+- This section displays a form that allows the user to edit a note;
+- The updated note takes the place of the previous one under the relevant reservation.
+
+### Login Section
+<img src=""> 
+
+- This section allows the user to create a private account through which they can book classes, write notes, like and comment on posts; 
+- The section displays a paragraph for users that already have an account, inviting them to click on the sign-in button to redirect them to the sign-in form;
+- The section has a form requesting the user's information to create an account;
+If the form is not filled correctly, it displays error  messages relative to the issue;
+- Once the form is filled up correctly, the submission redirects the user to the home page and shows a success message.
+
+### Sign In Section
+<img src="">
 
 
-### Feedback Section
-<img src="readme-images/feedback.png">
 
-- In this section, the program sends feedback to the user explaining how it handles the input data by printing the worksheet updated, the month, and the new value. Updating a value also triggers an update of monthly and yearly totals; messages of the main steps of the operations are displayed here too.
+### Logout Section
+<img src="">
 
-### Budget Section
-<img src="readme-images/budget.png">
-
-- This section shows messages about the comparison between
-monthly and yearly expenses and their respective budgets.
-- If the comparison is not possible, another sentence explains the reason on the terminal.
-- This section is displayed if:
-  - The first choice is to update an expense;
-  - The first choice is to set a monthly budget.
-
-### Restart/Leave Section
-<img src="readme-images/restart.png">
-
-- In this section, the program requests the user to choose between exiting the app or restarting the program.
-- If the input choice is: a letter but not y or n, not a letter at all, or more than one letter, the program displays a customized message error.
+- The section requests the user a logout confirmation;
+- Once logged out, the user is redirected to the home page and won't be able to access the restricted areas;
+- After the logout, a feedback message displays to acknowledge the user about the outcome of the action.
 
 
-### Expense Type Section
-<img src="readme-images/expense-type.png">
 
-- In this section, the program requests to enter a number to choose the expense type.
-- This section is displayed if:
-  - The first choice is to set a monthly budget;
-  - The first choice is to view a total and the choice of Total Type Section is 2.
-- If the input choice is not in the number range or not a number at all, the program displays a customized message error.
-
-
-### View Total Section
-<img src="readme-images/total.png">
-
-- In this section, the program requests to choose which total to display: the total of expenses by month or the total of a specific expense type by year.
-- If the input choice is not in the number range or not a number at all, the program displays a customized message error.
 
 ## Data Model:
 <img src="readme-images/chart.png">
