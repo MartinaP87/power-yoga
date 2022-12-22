@@ -85,7 +85,6 @@ def book(request):
             new_reservation = form.save()
             valid_reservation(
                 request, new_reservation, yoga_classes_available)
-            return redirect('reservations')
     form = ReservationForm()
     context = {
         'time_slots': time_slots,
@@ -118,6 +117,7 @@ def no_obsolete_classes(request):
         for yoga_class in yoga_classes:
             if yoga_class.day < week_days[0]:
                 yoga_class.delete()
+                return redirect('book')
     print("DA INIZIO SETTIMANA", yoga_classes)
     return yoga_classes
 
@@ -197,16 +197,16 @@ def fully_booked(request, reservation_id):
     """
     reservation = get_object_or_404(Reservation, id=reservation_id)
     if reservation.approved:
+        messages.success(
+            request, 'Your booking was successful!')
         reduce_available_spaces(
             request, reservation.yoga_class_id)
         print("GIRO FINITO")
-        return redirect('reservations')
     else:
         messages.error(
             request, 'Unfortunately the class is \
 fully booked, choose another class!')
         reservation.delete()
-        return redirect('book')
 
 
 def reduce_available_spaces(request, chosen_class_id):
@@ -222,7 +222,6 @@ def reduce_available_spaces(request, chosen_class_id):
     chosen_yoga_class.save()
     print("CLASSE ID E SPAZIO-", chosen_yoga_class.id,
           chosen_yoga_class.available_spaces)
-    return redirect('reservations')
 
 
 def delete_reservation(request, reservation_id):
@@ -250,7 +249,6 @@ def increase_available_spaces(request, chosen_class_id):
     chosen_yoga_class.save()
     print("CLASSE ID E SPAZIO+", chosen_yoga_class.id,
           chosen_yoga_class.available_spaces)
-    return redirect('reservations')
 
 
 def edit_note(request, note_id):
