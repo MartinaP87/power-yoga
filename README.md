@@ -9,7 +9,8 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - The fully responsive navigation bar appears on all pages;
 - It includes links to the Logo, Home page, About, Classes, Blog, Sign-in, and Sign Up page and is identical on each page to allow for easy navigation.
 - When the user is logged in, the navbar also displays a link to Book and Reservations, which are restricted areas;
-- This section will allow the user to easily navigate from page to page across all devices without reverting to the previous page via the ‘back’ button.
+- This section will allow the user to easily navigate from page to page across all devices without reverting to the previous page via the ‘back’ button;
+- When the screen size reduces to the breakpoint, the navbar collapse into a hamburger menu.
 
 ### Callout Section
  <img src ="">
@@ -154,7 +155,7 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - This section displays a form that allows the user to edit a note;
 - The updated note takes the place of the previous one under the relevant reservation.
 
-### Login Section
+### Sign In Section
 <img src=""> 
 
 - This section allows the user to create a private account through which they can book classes, write notes, like and comment on posts; 
@@ -163,10 +164,16 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 If the form is not filled correctly, it displays error  messages relative to the issue;
 - Once the form is filled up correctly, the submission redirects the user to the home page and shows a success message.
 
-### Sign In Section
+### Login Section
 <img src="">
 
-
+- This section allows the user to sign in to their private account through which they can book classes, write notes, like and comment on posts; 
+- The section displays a paragraph for users that don't already have an account, inviting them to click on the sign-up button to redirect them to the sign-up form;
+- The section has a form requesting the user's information to login into their account;
+- If the form is not filled correctly, it displays error  messages relative to the issue;
+- Once the form is filled up correctly, the submission redirects the user to the home page and shows a success message;
+- Under the form, the section displays a 'remember me' thick box. If the user selects it, it saves the details for the next visit;
+- Under the thick box, there is a 'forgot password?' link, that redirects the user to a form to reset the password.
 
 ### Logout Section
 <img src="">
@@ -175,6 +182,13 @@ If the form is not filled correctly, it displays error  messages relative to the
 - Once logged out, the user is redirected to the home page and won't be able to access the restricted areas;
 - After the logout, a feedback message displays to acknowledge the user about the outcome of the action.
 
+## Future Features
+- A mail system that allows the users to receive an email when the admin deletes or updates a class previously booked;
+- A mail system that sends a 'free week classes' when a user signs up;
+- A feature to display live classes;
+- A system to store classes videos and sell them as packages;
+- A payment system to buy lessons packages;
+- A feature to buy a package and send it as a gift, making sure that only one device can access it.
 
 
 
@@ -317,41 +331,93 @@ If the form is not filled correctly, it displays error  messages relative to the
 No errors were returned when passing through the official [PEP8 validator]();
 
 ## Bugs:
-The initial idea was to create a worksheet for every expense.
-When looping through the values of numerous worksheets, the program would have raised a 429 "Too many requests" error.
-Reducing the number of worksheets fixed the problem.
+- In script.js, when I tried to retrieve elements by the class name "day" and access their values, I was relating to them as if they were a single value, which led to an error. 
+I later realized that the request was receiving an HTMLCollection, and to access it I needed to iterate through the elements. Using a for loop fixed the issue.
 
-When calculating the monthly bill totals, if there was an empty cell in the column, the program would have raised an int() error since " " can't be converted into an integer. 
-Adding a ternary operator in the function to convert all column values into integers fixed the problem.
+- After adding the notes form I realized that the reservation field (from which select the reservation the note has to refer to) was presenting too many options. The possible reservations weren't just the logged-in user's reservations but all users. Adding a filter to the queryset of the reservation field fixed the problem.
+
+- When writing the function reduce_available_spaces the available_spaces value of the relevant class was reduced temporarily.
+When the function was called again, it was starting from the initial value. Simply saving the class fixed the problem.
 
 ## Deployment:
-- In GitHub, create a list of requirements in requirements.txt by using this command in the terminal: **pip3 freeze > requirements.txt**;
-- Commit and push these changes;
-- Create an account on [Heroku](https://www.heroku.com/):
-  - On the homepage, click sign-up and fill out the form;
-  - Click **Create free account**;
-  - Click the link provided in the confirmation email sent by Heroku;
-  - Set a password and login;
-  - Proceed and accept the terms of service;
+- Log into Heroku;
+- On the dashboard, click on **New**;
 - Click the **Create new app** button;
 - Name your app by typing the chosen name under **App name**;
 - Select your region and click the **Create app** button;
+- Create a database in ElephantSql.com;
+- Log in to ElephantSQL to access your dashboard;
+- Click **Create New Instance**;
+- Set up your plan by giving your plan a name (the name of the project);
+- Select the Tiny Turtle (Free) plan
+- You can leave the Tags field blank
+- Click on **Select Region** and select a data center near you;
+- Click the **Review** button;
+- Check your details are correct and then click **Create instance**;
+- Return to the ElephantSQL dashboard and click on the database name for this project;
+- In the URL section, click the copy icon to copy the database URL;
+- In your project workspace, create a file called env.py; 
+- Make sure that this file is included in the .gitignore file;
+- In the env.py file type **import.os**;
+- Set the environment variables: add a blank line, then set a **DATABASE_URL** variable, with the value you just copied from ElephantSQL following this format:**os.environ["DATABASE_URL"]="copied URL from ElephantSQL"**;
+- Add a **SECRET_KEY** following this format: **os.environ["SECRET_KEY"] = "my^secret@key"**;
+- Make sure you save the file;
+- Open up your settings.py file and add the following code below your Path import: **import os**
+ **import dj_database_url**
+ **if os.path.isfile('env.py'):**
+     **import env**
+- A little further down, remove the secret key provided by Django;
+- Reference the variable in the env.py file, so change your SECRET_KEY variable to the following: **SECRET_KEY = os.environ.get('SECRET_KEY')**;
+- Scroll down in your settings file to the database section and comment out the original DATABASES variable;
+- Add this code below: **DATABASES = {**
+    **'default': dj_database_url.parse(os.environ.get****("DATABASE_URL"))**
+ **}**
+- Make sure you save your file;
+- Run the migration command in your terminal to migrate your database structure to the newly-connected ElephantSQL database:
+ **python3 manage.py migrate**;
+- Once the migrations have completed, head back over to your ElephantSQL dashboard, select your database instance and then select the “Browser” tab on the left;
+- Click **Table queries** to reveal a dropdown list, you can see your database structure here;
+- Add, commit and push your project to GitHub;
+- Go back to the Heroku dashboard open the Settings tab;
 - On the menu bar, click on **Settings**;
 - In the **Config Vars** section, click on **Reveal Config Vars**;
-- In the field for **KEY** enter **CREDS**;
-- Go back to the workspace, open creds.json, and copy the content;
-- In the field for **VALUE** paste the creds.json file, and click **Add**;
+- In the field for **KEY** enter **DATABASE_URL**;
+SECRET_KEY containing your secret key.
+- In the field for **VALUE** copy in your database URL from ElephantSQL, and click **Add**;
+- In the field for **KEY** enter **SECRET_KEY**;
+- In the field for **VALUE** copy the secret key that you used in the env.py file, and click **Add**;
 - Add another Config Var underneath by entering **PORT** in the **KEY** field, **8000** in the VALUE field, and clicking the **Add** button;
-- Scroll down to the **Buildpacks** section and click on **Add buildpack**;
-- Select **Python** and click **Save changes**;
-- Click on **Add buildpack** again, select **Node.js** and click **Save changes**;
+<!-- - Go to cloudinary.com;
+- Click on the **Sign Up For Free** button;
+- Provide your name, email address and choose a password;
+- For Primary interest, you can choose Programmable Media for image and video API;
+- Click **Create Account**;
+- Verify your email and you will be brought to the dashboard;
+- Click on the **Copy to clipboard** link next to API environment variable;
+- go back to your workspace and in the env.py file, add another line at the bottom. **os.environ["CLOUDINARY_URL"] = "value that we just copied"**, removing from the pasted value "CLOUDINARY_URL =" from the beginning;
+- Copy this value again;
+- In Heroku add another ConfigVar with the **KEY** value **CLAUDINARY_URL** and pasting in the **VALUE** field the copied value;
+- Back in the workspace, in settings.py file, head to the installed apps section and add in the Cloudinary libraries that we installed before by adding **"cloudinary_storage"** just above **"django.contrib.staticfiles"** and then the regular **"cloudinary"** library underneath;
+- Scroll down settings.py and under **STATIC_URL** add: **STATICFILES_STORAGE = "cloudinary_storage.storage.StaticHashedCloudinaryStorage"**,
+**STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]**, 
+**STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')**
+**MEDIA_URL = '/media/'**
+**DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'**;
+- At the top of settings.py, just under **BASE_DIR** add:
+**TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')**;
+- Scroll down midway in your settings.py file and change the **DIRS** key in the **TEMPLATES** like so: **'DIRS': [TEMPLATES_DIR],**; -->
+-  Add your Heroku host name into **ALLOWED_HOSTS** in our settings.py file in this format: **ALLOWED_HOSTS = ['host name', 'localhost']**;
+- In the root of your workspace create **Procfile**;
+- Inside **Procfile** add the following code: **web: gunicorn projectname.wsgi**
+- Save files, add, commit and push your project to GitHub;
+- Go back to the Heroku dashboard;
 - Scroll up to the main menu bar and click on **Deploy**;
 - In the **Deployment method** section, select **GitHub**;
 - Click **Connect to GitHub**;
 - Enter the name of your repository in the search bar and click **Search**;
 - Once your repository it's shown underneath, click on **Connect**;
 - Scroll down to the **Manual deploy** section;
-- Click on **Deploy branch** making sure the branch to deploy is **master**;
+- Click on **Deploy branch**;
 - Wait until you see the message **Your app was successfully deployed**;
 - Click on **View** to make sure your mock terminal is up and running.
 
