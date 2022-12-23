@@ -5,20 +5,20 @@ window.onload = function () {
         let messages = document.getElementById("msg");
         let alert = new bootstrap.Alert(messages);
         alert.close();
-        messages.delete()
+        messages.delete();
         messages.alert('dispose');
     }
     
     // Display classes in calendar according to day and time slot
     function displayClasses() {
-        let days = document.getElementsByClassName("day")
+        let days = document.getElementsByClassName("day");
         for (let i = 0; i < days.length; i++) {
             let day = document.getElementsByClassName("day")[i];
             let time = document.getElementsByClassName("time")[i];
             let title = document.getElementsByClassName("class_title")[i];
             let row_blocks = document.getElementsByClassName("rows");
-            let week_days_collection = document.getElementsByClassName("cols")[0].children
-            for (week_day in week_days_collection) {
+            let week_days_collection = document.getElementsByClassName("cols")[0].children;
+            for (let week_day in week_days_collection) {
                 if (day.innerText == week_days_collection[week_day].innerText) {
                     let new_class = week_days_collection[week_day].className;
                     title.classList.add(new_class);
@@ -31,7 +31,7 @@ window.onload = function () {
                     for (let time_row = 0; time_row < time_rows.length; time_row++) {
                         let correct_class = time_rows[time_row].className;
                         if (title.classList.contains(correct_class)) {
-                            time_rows[time_row].innerHTML = '<h6 class="font-weight-bold">' + title.innerText; + '</h6>'
+                            time_rows[time_row].innerHTML = '<h6 class="font-weight-bold">' + title.innerText; + '</h6>';
                         }
                     }
                 }
@@ -39,6 +39,6 @@ window.onload = function () {
         }
     }
     // Call functions
-    myTimeout
-    displayClasses()
-}
+    myTimeout;
+    displayClasses();
+};
