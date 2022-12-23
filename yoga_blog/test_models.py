@@ -11,7 +11,7 @@ class TestModels(TestCase):
         self.assertEqual(post.status, 0)
 
     def test_comment_approved_default_false(self):
-        user = User.objects.create(username='TestUsernameCooment')
+        user = User.objects.create(username='TestUsernameComment')
         post = Post.objects.create(title='TestPostToComment', author=user)
         comment = Comment.objects.create(name='TestComment', post=post)
         self.assertFalse(comment.approved)
