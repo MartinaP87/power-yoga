@@ -5,6 +5,7 @@ Yoga with Carmen is a website built for the yoga teacher Carmen Ferraro. The web
 Yoga with Carmen targets people interested in yoga and would like to start or keep practicing it; it also targets people with physical pain problems due to bad posture and helps them resolve them through exercise.
 
 ## FEATURES:
+
 ### Navbar
 - The fully responsive navigation bar appears on all pages;
 - It includes links to the Logo, Home page, About, Classes, Blog, Sign-in, and Sign Up page and is identical on each page to allow for easy navigation.
@@ -197,6 +198,17 @@ If the form is not filled correctly, it displays error  messages relative to the
 
 ## Testing:
 
+- I have conducted the testing of all models, forms, and views HTTPResponses using the Django built-in tool Unittes. From settings.py I commented out the Postgres DATABASE and used instead:
+**DATABASES = {**
+  **'default': {**
+      **'ENGINE': 'django.db.backends.sqlite3',**
+      **'NAME': BASE_DIR / 'db.sqlite3',**
+  **}**
+**}**
+
+### Manual Testing
+- I have conducted manual testing using print statements and/or checking the outcomes on the browser. 
+The results are described underneath:
 <table>
 <thead>
 <tr>
@@ -207,94 +219,95 @@ If the form is not filled correctly, it displays error  messages relative to the
 </thead>
 <tbody>
 <tr>
-<td>Run the program</td>
-<td>Show welcome message and request of operation to execute</td>
+<td>reservations function:</td>
+</tr>
+<tr>
+<td>Reservation.objects.all()</td>
+<td>Returns a QuerySet that contains all Reservation objects in the database.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type a number, not in the options range or a non-number</td>
-<td>- Error message appears without stopping the program<br>
-- Request again a valid input</td>
+<td>note_form = NotesForm()</td>
+<td>Returns a form with all option values.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>To update a worksheet: type a number between 1 and 7</td>
-<td>Access to month options</td>
+<td>note_form.fields["reservation"].queryset = Reservation.objects.filter(
+                member=request.user)</td>
+<td>Filters the note form field reseravtion to only the logedin user's reservations.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type a number between 1 and 12</td>
-<td>Request the value of the expense</td>
+<td>if request.method == 'POST':
+        note_form = NotesForm(request.POST)</td>
+<td>The note form is displayed, and the field's options are limited to only the logged-in users.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type a number less than 0 or a non-number</td>
-<td>- Error message appears without stopping the program<br>
-- Request again a valid input</td>
+<td>new_note = note_form.save()</td>
+<td>The new note instance is created and displayed.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Enter valid data</td>
-<td>- Update the relevant worksheet and inform the user;<br>
-    - If the entry is of a monthly bill, only one value per month will be allowed;<br>
-    - If the entry is for car or food expenses, it's possible to add more values for the same month;<br>
-    - Update the monthly total of the selected expense in the total worksheet and inform the user;<br>
-    - Update Year Total in the total worksheet and inform the user;<br>
-    - Access the monthly budget for the selected expense and compare it to the respective total by sending a message to the user;<br>
-    - State the difference between monthly budget and total;<br>
-    - If the value for the monthly budget is not present, inform the user;<br>
-    - Access the yearly budget for the selected expense and compare it to the respective total by sending a message to the user;<br>
-    - If the value for the yearly budget is not present, try to calculate it.<br>If calculation is not possible due to missing information, inform the user
-    - State the difference between yearly budget and total;<br>
-    - Request to exit the game or continue with a new operation.
-</td>
+<td>get_days function:</td>
+</tr>
+<tr>
+<td>today = date.today()</td>
+<td>It picks today's date.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type "y"</td>
-<td>Restart the program</td>
+<td>start = today - timedelta(days=today.weekday())</td>
+<td>It picks the first day of the current week.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type "n"</td>
-<td>Exit the program</td>
+<td>end = start + timedelta(days=13)</td>
+<td>It picks the last day of the following week.</td>
 <td>Yes</td>
 </tr>
-<td>Type anything else</td>
-<td>- Error message appears without stopping the program<br>
-- Request again a valid input</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>To set a monthly budget: type 8</td>
-<td>Access to expense type options</td>
+<td>dates = [start + timedelta(days=i) for i in range((end-start).days+1)]</td>
+<td>It returns the range of dates between the first day of this week and the last of the following.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type a number not in the options range or a non-number</td>
-<td>- Error message appears without stopping the program<br>
-- Request again a valid input</td>
+<td>no_obsolete_classes function:</td>
+</tr>
+<tr>
+<td>yoga_classes = YogaClass.objects.filter(status=1)</td>
+<td>Returns a QuerySet that contains all YogaClass objects with status 1 (published) in the database.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Enter valid number</td>
-<td>Access to month options</td>
+<td>for yoga_class in yoga_classes:
+            if yoga_class.day < week_days[0]:
+                yoga_class.delete()</td>
+<td>It deletes classes older than this week.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Enter valid number</td>
-<td>Request relevant budget input</td>
+<td>yoga_classes_available_now function:</td>
+</tr>
+<tr>
+<td>yoga_classes_available = []
+    for yoga_class in yoga_classes:
+        if yoga_class.day >= date.today():
+            yoga_classes_available.append(yoga_class)</td>
+<td>It pushes in the yoga_classes_available array only the classes from today on.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Enter budget data</td>
-<td>- Update budget worksheet and inform the user;<br>
-    - Access the monthly total for the selected expense and compare it to the respective budget by sending a message to the user;<br>
-    - State the difference between monthly budget and total;<br>
-    - Access the yearly budget for the selected expense and compare it to the respective total by sending a message to the user;<br>
-    - If the value for the yearly budget is not present, try to calculate it.<br>- If calculation is not possible due to missing information, inform the user;<br>
-    - State the difference between yearly budget and total;<br>
-    - Request to exit the game or continue with a new operation.</td>
+<td>check_double_booking function:</td>
+</tr>
+<tr>
+<td>reservation = get_object_or_404(Reservation, id=reservation_id)</td>
+<td>It returns a reservation with a specific id, which in our case, is the new reservation id.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>yoga_class_user_reservations = Reservation.objects.filter(
+        yoga_class_id=reservation.yoga_class_id, member=current_user)</td>
+<td>It returns all the reservations of the current user and the same class.</td>
 <td>Yes</td>
 </tr>
 <tr>

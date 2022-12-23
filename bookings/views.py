@@ -50,7 +50,7 @@ def reservations(request):
     if request.method == 'POST':
         note_form = NotesForm(request.POST)
         if note_form.is_valid():
-            note_form.save()
+            new_note = note_form.save()
             return redirect('reservations')
     notes = Notes.objects.all()
     context = {
