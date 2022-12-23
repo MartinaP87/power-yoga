@@ -194,7 +194,7 @@ If the form is not filled correctly, it displays error  messages relative to the
 
 
 ## Data Model:
-<img src="readme-images/chart.png">
+<img src="">
 
 ## Testing:
 
@@ -209,6 +209,8 @@ If the form is not filled correctly, it displays error  messages relative to the
 ### Manual Testing
 - I have conducted manual testing using print statements and/or checking the outcomes on the browser. 
 The results are described underneath:
+
+#### Bookings Views
 <table>
 <thead>
 <tr>
@@ -311,37 +313,289 @@ The results are described underneath:
 <td>Yes</td>
 </tr>
 <tr>
-<td>To view totals: type 9</td>
-<td>Access to total type options: by month or by expense type</td>
+<td>if yoga_class_user_reservations.count() > 1:
+        messages.error(
+                request, "You are already booked \
+                    in for this class!")
+        reservation.delete()</td>
+<td>If the user already has a reservation for the class, display an error message.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type 1</td>
-<td>Access to month option</td>
+<td>else:
+        reserved_class_id = reservation.yoga_class_id
+        updated_reservation = update_approval(
+                        request, reservation.id)</td>
+<td>If the user hasn't a reservation for the class, call the update_approval function.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Select month number</td>
-<td>- Print a message with the total of the expenses for the relevant month;<br>- Request to exit the game or continue with a new operation.</td>
+<td>update_approval function:</td>
+</tr>
+<tr>
+<td>reservation = get_object_or_404(Reservation, id=reservation_id)
+    reserved_class_id = reservation.yoga_class_id
+    queryset = YogaClass.objects.filter(status=1)
+    chosen_yoga_class = get_object_or_404(queryset, id=reserved_class_id)</td>
+<td>It retrieves the class the user reserved.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type 2</td>
-<td>Access to expense type options</td>
+<td>if chosen_yoga_class.available_spaces > 0:
+        reservation.approved
+        reservation.save()
+    else:
+        reservation.approved = False
+        reservation.save()</td>
+<td>It checks if the chosen class has a number of available_space higher than 0. If it does, the approved status is set to True otherwise is set to False.</td>
 <td>Yes</td>
 </tr>
 <tr>
-<td>Type expense type number</td>
-<td>- Print a message with the yearly total of the selected expense type;<br>- Request to exit the game or continue with a new operation.</td>
+<td>fully_booked function:</td>
+</tr>
+<tr>
+<td>if reservation.approved:
+        messages.success(
+            request, 'Your booking was successful!')
+        reduce_available_spaces(
+            request, reservation.yoga_class_id)</td>
+<td>If the reservation is approved, it displays a success message.
+</td>
 <td>Yes</td>
 </tr>
 <tr>
+<td>reduce_available_spaces function:</td>
+</tr>
+<tr>
+<td>queryset = YogaClass.objects.filter(status=1)
+    chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)</td>
+<td>It retrieves the class just booked.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>spaces = int(chosen_yoga_class.available_spaces)
+    updated_spaces = spaces - 1
+    chosen_yoga_class.available_spaces = updated_spaces</td>
+<td>It reduces the number of available spaces of the booked yoga class.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>chosen_yoga_class.save()</td>
+<td>It saves the change just made for the next iteration.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>delete_reservation function:</td>
+</tr>
+<tr>
+<td>reservation.delete()
+    increase_available_spaces(request, reserved_class_id)</td>
+<td>It deletes the reservation and calls the increase_avaliable_spaces function.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>increase_avaliable_spaces function:</td>
+</tr>
+<tr>
+<td>queryset = YogaClass.objects.filter(status=1)
+    chosen_yoga_class = get_object_or_404(queryset, id=chosen_class_id)</td>
+<td>It retrieves the class just booked.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>spaces = int(chosen_yoga_class.available_spaces)
+    updated_spaces = spaces + 1
+    chosen_yoga_class.available_spaces = updated_spaces</td>
+<td>It increases the number of available spaces for the booked yoga class.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>chosen_yoga_class.save()</td>
+<td>It saves the change just made for the next iteration.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>valid_reservation function:</td>
+</tr>
+<tr>
+<td>if reservation.yoga_class in bookable_classes:
+        check_double_booking(request, reservation.id)</td>
+<td>If the reservation is in the correct time frame, it calls the   check_double_booking function.</td>
+<td>Yes</td>
+</tr>
+<td>else:
+        messages.error(request, "This class is not longer available")
+        reservation.delete()</td>
+<td>If the reservation is not in the correct time frame, it displays an error message and deletes the reservation.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>book function:</td>
+</tr>
+<tr>
+<td>week_days = get_days(request)
+    yoga_classes = no_obsolete_classes(request)
+    yoga_classes_available = yoga_classes_available_now(request)</td>
+<td>It retrieves the classes available for booking.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            form.instance.member_id = request.user.id</td>
+<td>The reservation form is displayed, and the field's options are limited to only the logged-in users.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>new_reservation = form.save()
+            valid_reservation(
+                request, new_reservation, yoga_classes_available)</td>
+<td>It saves the reservation and calls the valid_reservation function to check if it's acceptable.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>edit_note function:</td>
+</tr>
+<tr>
+<td>note = get_object_or_404(Notes, id=note_id)</td>
+<td>It retrieves the note that the user wishes to edit.<td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>edit_form = NotesForm(instance=note)
+    edit_form.fields["reservation"].queryset = Reservation.objects.filter(
+                member=request.user)</td>
+<td>It displays the form with the fields prepopulated with the previous values. The reservation field is restricted to the logged-in user reservations.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>if request.method == 'POST':
+        edit_form = NotesForm(request.POST, instance=note)
+        if edit_form.is_valid():
+            edit_form.save()</td>
+<td>If the form is submitted, the view validates it and saves the update note instance.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>delete_note function:</td>
+</tr>
+<tr>
+<td>note = get_object_or_404(Notes, id=note_id)
+    note.delete()</td>
+<td>It retrieves the note the user chose and deletes it.</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+
+#### Bookings Views
+<table>
+<thead>
+<tr>
+<th>Action or Event</th>
+<th>Expected Result</th>
+<th>Successful?<th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>post_list function:</td>
+</tr>
+<tr>
+<td>post_list = Post.objects.filter(status=1).order_by("-created_on")</td>
+<td>Returns a QuerySet that contains all Post objects in the database and orders it so that the most recent is displayed first.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>paginator = Paginator(post_list, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)</td>
+<td>It paginates the posts so that each page displays six posts maximum.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>post_detail function:</td>
+</tr>
+<tr>
+<td>queryset = Post.objects.filter(status=1)
+    post = get_object_or_404(queryset, slug=slug)</td>
+<td>It retrieves the post with the slug value equal to the one passed into the view.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>comments = post.comments.filter(approved=True).order_by("-created_on")</td>
+<td>It retrieves the comments linked to the post and orders them so that the most recent is displayed first.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>liked = False</td>
+<td>It sets the value of liked to False.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>if post.likes.filter(id=request.user.id).exists():
+        liked = True</td>
+<td>If a user liked the post, the value liked is set to True.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>commented = False</td>
+<td>It sets the value of commented to False.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td> comment_form = CommentForm()</td>
+<td>It displays an empty comment form.</td>
+<td>Yes</td>
+</tr>
+<td>if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment_form.instance.email = request.user.email
+            comment_form.instance.name = request.user.username
+            comment = comment_form.save(commit=False)
+            comment.post = post</td>
+<td>If the comment form is submitted, the email and username values are the logged-in users.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>comment.save()
+            messages.success(
+                request, 'You successfully left a comment.<br>\
+                Your comment is waiting for approval.')
+            commented = True</td>
+<td>It saves the comment instance and displays a success message; it sets the commented value to True.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>else:
+            comment_form = CommentForm()</td>
+<td>If the requested method is GET, it displays an empty comment form.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>post_like function:</td>
+</tr>
+<tr>
+<td>post = get_object_or_404(Post, slug=slug)</td>
+<td>It retrieves the post the user is interacting with.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)</td>
+<td>It checks if the user liked the post, if so when the function is called, it removes the like.</td>
+<td>Yes</td>
+</tr>
 </tbody>
 </table>
 
 ### Validator Testing:
 - PEP8 
-No errors were returned when passing through the official [PEP8 validator]();
+No errors were returned when passing through the official [CI Python Linter]();
 
 ## Bugs:
 - In script.js, when I tried to retrieve elements by the class name "day" and access their values, I was relating to them as if they were a single value, which led to an error. 

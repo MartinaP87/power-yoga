@@ -118,7 +118,6 @@ def no_obsolete_classes(request):
             if yoga_class.day < week_days[0]:
                 yoga_class.delete()
                 return redirect('book')
-    print("DA INIZIO SETTIMANA", yoga_classes)
     return yoga_classes
 
 
@@ -201,7 +200,6 @@ def fully_booked(request, reservation_id):
             request, 'Your booking was successful!')
         reduce_available_spaces(
             request, reservation.yoga_class_id)
-        print("GIRO FINITO")
     else:
         messages.error(
             request, 'Unfortunately the class is \
@@ -220,8 +218,6 @@ def reduce_available_spaces(request, chosen_class_id):
     updated_spaces = spaces - 1
     chosen_yoga_class.available_spaces = updated_spaces
     chosen_yoga_class.save()
-    print("CLASSE ID E SPAZIO-", chosen_yoga_class.id,
-          chosen_yoga_class.available_spaces)
 
 
 def delete_reservation(request, reservation_id):
@@ -247,8 +243,6 @@ def increase_available_spaces(request, chosen_class_id):
     updated_spaces = spaces + 1
     chosen_yoga_class.available_spaces = updated_spaces
     chosen_yoga_class.save()
-    print("CLASSE ID E SPAZIO+", chosen_yoga_class.id,
-          chosen_yoga_class.available_spaces)
 
 
 def edit_note(request, note_id):
