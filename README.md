@@ -375,21 +375,20 @@ When the function was called again, it was starting from the initial value. Simp
 - Make sure you save your file;
 - Run the migration command in your terminal to migrate your database structure to the newly-connected ElephantSQL database:
  **python3 manage.py migrate**;
-- Once the migrations have completed, head back over to your ElephantSQL dashboard, select your database instance and then select the “Browser” tab on the left;
+- Once the migrations have been completed, head back over to your ElephantSQL dashboard, select your database instance and then select the “Browser” tab on the left;
 - Click **Table queries** to reveal a dropdown list, you can see your database structure here;
 - Add, commit and push your project to GitHub;
-- Go back to the Heroku dashboard open the Settings tab;
+- Go back to the Heroku dashboard and open the Settings tab;
 - On the menu bar, click on **Settings**;
 - In the **Config Vars** section, click on **Reveal Config Vars**;
 - In the field for **KEY** enter **DATABASE_URL**;
-SECRET_KEY containing your secret key.
 - In the field for **VALUE** copy in your database URL from ElephantSQL, and click **Add**;
 - In the field for **KEY** enter **SECRET_KEY**;
 - In the field for **VALUE** copy the secret key that you used in the env.py file, and click **Add**;
 - Add another Config Var underneath by entering **PORT** in the **KEY** field, **8000** in the VALUE field, and clicking the **Add** button;
 <!-- - Go to cloudinary.com;
 - Click on the **Sign Up For Free** button;
-- Provide your name, email address and choose a password;
+- Provide your name, and email address and choose a password;
 - For Primary interest, you can choose Programmable Media for image and video API;
 - Click **Create Account**;
 - Verify your email and you will be brought to the dashboard;
@@ -397,7 +396,7 @@ SECRET_KEY containing your secret key.
 - go back to your workspace and in the env.py file, add another line at the bottom. **os.environ["CLOUDINARY_URL"] = "value that we just copied"**, removing from the pasted value "CLOUDINARY_URL =" from the beginning;
 - Copy this value again;
 - In Heroku add another ConfigVar with the **KEY** value **CLAUDINARY_URL** and pasting in the **VALUE** field the copied value;
-- Back in the workspace, in settings.py file, head to the installed apps section and add in the Cloudinary libraries that we installed before by adding **"cloudinary_storage"** just above **"django.contrib.staticfiles"** and then the regular **"cloudinary"** library underneath;
+- Back in the workspace, in the settings.py file, head to the installed apps section and add in the Cloudinary libraries that we installed before by adding **"cloudinary_storage"** just above **"django.contrib.staticfiles"** and then the regular **"cloudinary"** library underneath;
 - Scroll down settings.py and under **STATIC_URL** add: **STATICFILES_STORAGE = "cloudinary_storage.storage.StaticHashedCloudinaryStorage"**,
 **STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]**, 
 **STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')**
@@ -406,7 +405,7 @@ SECRET_KEY containing your secret key.
 - At the top of settings.py, just under **BASE_DIR** add:
 **TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')**;
 - Scroll down midway in your settings.py file and change the **DIRS** key in the **TEMPLATES** like so: **'DIRS': [TEMPLATES_DIR],**; -->
--  Add your Heroku host name into **ALLOWED_HOSTS** in our settings.py file in this format: **ALLOWED_HOSTS = ['host name', 'localhost']**;
+-  Add your Heroku hostname into **ALLOWED_HOSTS** in our settings.py file in this format: **ALLOWED_HOSTS = ['hostname', 'localhost']**;
 - In the root of your workspace create **Procfile**;
 - Inside **Procfile** add the following code: **web: gunicorn projectname.wsgi**
 - Save files, add, commit and push your project to GitHub;
