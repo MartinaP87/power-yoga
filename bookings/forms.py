@@ -18,8 +18,3 @@ class NotesForm(forms.ModelForm):
         labels = {
             'annotation': ('Note'),
         }
-    
-    # def __init__(self, *args, **kwargs):
-    #     super(NotesForm, self).__init__(*args, **kwargs)
-    #     self.fields['reservation'].queryset = Reservation.objects.filter(
-    #         member=request.user)
