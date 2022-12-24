@@ -273,6 +273,8 @@ If the form is not filled correctly, it displays error  messages relative to the
 The results are described underneath:
 
 ### Bookings Views
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671903966/readme_images/python_testing_bookings_dlexla.png">
+
 <table>
 <thead>
 <tr>
@@ -552,6 +554,8 @@ The results are described underneath:
 </table>
 
 ### Bookings Views
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671903966/readme_images/python_testing_blog_veex6s.png">
+
 <table>
 <thead>
 <tr>
@@ -656,6 +660,17 @@ The results are described underneath:
 </table>
 
 ### Validator Testing:
+- [W3C Markup Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fcarmen-yoga.herokuapp.com%2F)
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671904527/readme_images/html_validator_ezzpto.png">
+
+- [The W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator): I tested my css by direct input.
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671904663/readme_images/css_testing_rwlewv.png">
+
+- [JSHint](https://jshint.com/):
+The testing presented two warnings: "Expected an assignment or function call and instead saw an expression." and considered 'bootstrap' an undefined variable. Unfortunately, I haven't been able to resolve the issues. I have tested the functions manually, using print statements and the results on the browser, and the code works as expected.
+
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671905407/readme_images/jshint_eyy0az.png">
+
 - PEP8 
 No errors were returned when passing through the official [CI Python Linter]();
 
