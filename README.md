@@ -4,6 +4,8 @@
 Yoga with Carmen is a website built for the yoga teacher Carmen Ferraro. The website allows Carmen to showcase her work, publish classes, set maximum available spaces, and display them on a calendar. Users can sign up, view, comment, and like posts, book classes, and comment on their reservations. The purpose of the website is mainly informative. It provides an exhaustive description of the disciplines practiced, allowing users who want to start a yoga journey to have a better understanding of the courses.
 Yoga with Carmen targets people interested in yoga and would like to start or keep practicing it; it also targets people with physical pain problems due to bad posture and helps them resolve them through exercise.
 
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671895110/readme_images/responsive_cbrrxj.png">
+
 ## DESIGN PLANNING:
 The design of the website has been implemented using Balsamiq wireframes. The wireframes allowed me to sketch prototypes of the web pages so that I had a clear visual idea of how the website should have looked like.
 
@@ -20,7 +22,7 @@ The design of the website has been implemented using Balsamiq wireframes. The wi
 <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880224/readme_images/blog_page_wireframe_xycyne.png">
 
 - ### Info Page
-<img src ="">
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671893785/readme_images/info_page_wireframe_j512pr.png">
 
 - ### Book Page
 <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880224/readme_images/book_page_wireframe_u2by8e.png">
@@ -133,7 +135,7 @@ The design of the website has been implemented using Balsamiq wireframes. The wi
 - Under the title is displayed the date when the post was published and the number of likes.
 
 ### Post Page Title Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671898716/readme_images/post_page_title_jekzks.png">
 
 - This section displays the title of the post on which the user previously clicked;
 - Under the title, it displays the username of the publisher and the date when the post was published.
@@ -170,6 +172,11 @@ The design of the website has been implemented using Balsamiq wireframes. The wi
 - Through this section, the user can interact with other users;
 - Once the comment is submitted, the user receives feedback about the successful submission and the approval status.
 
+### Info Section
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671895110/readme_images/info_o82ugd.png">
+
+- This section displays the studio's location, which is where the classes take place;
+- It displays the yoga teacher's contact details so the user can get in touch with her for any inquiry.
 
 ### Booking Form Section
 <img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880225/readme_images/booking_form_y3tjzr.png">
@@ -242,7 +249,8 @@ If the form is not filled correctly, it displays error  messages relative to the
 - Once logged out, the user is redirected to the home page and won't be able to access the restricted areas;
 - After the logout, a feedback message displays to acknowledge the user about the outcome of the action.
 
-## Future Features
+## Future Features To Implement
+- A filtration system to view only the available classes in the booking form;
 - A mail system that allows the users to receive an email when the admin deletes or updates a class previously booked;
 - A mail system that sends a 'free week classes' when a user signs up;
 - A feature to display live classes;
@@ -660,6 +668,9 @@ I later realized that the request was receiving an HTMLCollection, and to access
 - When writing the function reduce_available_spaces the available_spaces value of the relevant class was reduced temporarily.
 When the function was called again, it was starting from the initial value. Simply saving the class fixed the problem.
 
+## Ongoing bugs:
+During testing, I realized that when I tried to retrieve the password, the website was crushing, and the system wasn't allowing me to reset it. I then deleted the 'forgot password?' link to prevent the issue, but I haven't found a solution to fix the bug.
+
 ## Deployment:
 - Log into Heroku;
 - On the dashboard, click on **New**;
@@ -707,25 +718,6 @@ When the function was called again, it was starting from the initial value. Simp
 - In the field for **KEY** enter **SECRET_KEY**;
 - In the field for **VALUE** copy the secret key that you used in the env.py file, and click **Add**;
 - Add another Config Var underneath by entering **PORT** in the **KEY** field, **8000** in the VALUE field, and clicking the **Add** button;
-<!-- - Go to cloudinary.com;
-- Click on the **Sign Up For Free** button;
-- Provide your name, and email address and choose a password;
-- For Primary interest, you can choose Programmable Media for image and video API;
-- Click **Create Account**;
-- Verify your email and you will be brought to the dashboard;
-- Click on the **Copy to clipboard** link next to API environment variable;
-- go back to your workspace and in the env.py file, add another line at the bottom. **os.environ["CLOUDINARY_URL"] = "value that we just copied"**, removing from the pasted value "CLOUDINARY_URL =" from the beginning;
-- Copy this value again;
-- In Heroku add another ConfigVar with the **KEY** value **CLAUDINARY_URL** and pasting in the **VALUE** field the copied value;
-- Back in the workspace, in the settings.py file, head to the installed apps section and add in the Cloudinary libraries that we installed before by adding **"cloudinary_storage"** just above **"django.contrib.staticfiles"** and then the regular **"cloudinary"** library underneath;
-- Scroll down settings.py and under **STATIC_URL** add: **STATICFILES_STORAGE = "cloudinary_storage.storage.StaticHashedCloudinaryStorage"**,
-**STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]**, 
-**STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')**
-**MEDIA_URL = '/media/'**
-**DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'**;
-- At the top of settings.py, just under **BASE_DIR** add:
-**TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')**;
-- Scroll down midway in your settings.py file and change the **DIRS** key in the **TEMPLATES** like so: **'DIRS': [TEMPLATES_DIR],**; -->
 -  Add your Heroku hostname into **ALLOWED_HOSTS** in our settings.py file in this format: **ALLOWED_HOSTS = ['hostname', 'localhost']**;
 - In the root of your workspace create **Procfile**;
 - Inside **Procfile** add the following code: **web: gunicorn projectname.wsgi**
@@ -741,14 +733,17 @@ When the function was called again, it was starting from the initial value. Simp
 - Wait until you see the message **Your app was successfully deployed**;
 - Click on **View** to make sure your mock terminal is up and running.
 
+
 ## Credit:
-- Code Institute's Love sandwiches walkthrough project: it helped to connect API, build the basic structure of my project and deploy it;
-- [Ternary operator tutorial](https://www.tutorialspoint.com/ternary-operator-in-python): helped to solve the previously mentioned bug;
+- Code Institute's 'I think therefore I blog' walkthrough project: it helped to build the basic structure of my blog app;
+- [Django documentation](https://docs.djangoproject.com/en/4.1/), Code Institute Tutors, [W3School](https://www.w3schools.com/), [Stackoverflow](https://stackoverflow.com/): helped to understand and resolve bugs;
 - [Grammarly](https://app.grammarly.com/): helped to correct grammar errors.
 
 ### Media:
-[Lucidchart](https://www.lucidchart.com): used for the diagram in README.md
 
-## Libraries:
-[Gspread](://docs.gspread.org)
-[Google auth](https://pypi.org/project/google-auth/)
+- [Mockup screen generator](https://ui.dev/amiresponsive?): to evaluate the website responsiveness;
+- [Balsamiq](https://balsamiq.cloud/): used for the pages wireframes;
+- [Pexels](): used for two background images;
+- [Google Fonts](https://fonts.google.com/): used for the website's fonts;
+- [Font Awesome](https://fontawesome.com/): used for icons;
+

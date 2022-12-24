@@ -6,9 +6,9 @@ window.onload = function () {
         let alert = new bootstrap.Alert(messages);
         alert.close();
         messages.delete();
-        messages.alert('dispose');
+        messages.alert("dispose");
     }
-    
+
     // Display classes in calendar according to day and time slot
     function displayClasses() {
         let days = document.getElementsByClassName("day");
