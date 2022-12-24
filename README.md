@@ -4,9 +4,68 @@
 Yoga with Carmen is a website built for the yoga teacher Carmen Ferraro. The website allows Carmen to showcase her work, publish classes, set maximum available spaces, and display them on a calendar. Users can sign up, view, comment, and like posts, book classes, and comment on their reservations. The purpose of the website is mainly informative. It provides an exhaustive description of the disciplines practiced, allowing users who want to start a yoga journey to have a better understanding of the courses.
 Yoga with Carmen targets people interested in yoga and would like to start or keep practicing it; it also targets people with physical pain problems due to bad posture and helps them resolve them through exercise.
 
+## DESIGN PLANNING:
+The design of the website has been implemented using Balsamiq wireframes. The wireframes allowed me to sketch prototypes of the web pages so that I had a clear visual idea of how the website should have looked like.
+
+- ### Home Page
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880228/readme_images/home_page_wireframe_n5ijym.png">
+
+- ### About Page
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880224/readme_images/about_page_wireframe_olsghy.png">
+
+- ### Classes Page
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880228/readme_images/classes_types_page_wireframe_u2fmwq.png">
+
+- ### Blog Page
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880224/readme_images/blog_page_wireframe_xycyne.png">
+
+- ### Info Page
+<img src ="">
+
+- ### Book Page
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880224/readme_images/book_page_wireframe_u2by8e.png">
+
+- ### Reservations Page
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880228/readme_images/reservation_page_wireframe_iwiyuj.png">
+
+## USER STORIES:
+### As User:
+- [View yoga types](https://github.com/MartinaP87/power-yoga/issues/26)
+- [View info](https://github.com/MartinaP87/power-yoga/issues/27)
+- [View post list](https://github.com/MartinaP87/power-yoga/issues/2)
+- [Site pagination](https://github.com/MartinaP87/power-yoga/issues)
+- [Open a post](https://github.com/MartinaP87/power-yoga/issues/11)
+- [View comments](https://github.com/MartinaP87/power-yoga/issues/9)
+- [View Likes](https://github.com/MartinaP87/power-yoga/issues/10)
+- [Account registration](https://github.com/MartinaP87/power-yoga/issues/8)
+
+### As Signed In User:
+- [View classes](https://github.com/MartinaP87/power-yoga/issues/14)
+- [Book a class](https://github.com/MartinaP87/power-yoga/issues/16)
+- [View reservations](https://github.com/MartinaP87/power-yoga/issues/18)
+- [Delete reservation](https://github.com/MartinaP87/power-yoga/issues/17)
+- [Add note](https://github.com/MartinaP87/power-yoga/issues/19)
+- [Edit note](https://github.com/MartinaP87/power-yoga/issues/20)
+- [Delete note](https://github.com/MartinaP87/power-yoga/issues/21)
+- [View comments]()
+- [Comment on a post](https://github.com/MartinaP87/power-yoga/issues/7)
+- [Like / Unlike](https://github.com/MartinaP87/power-yoga/issues/6)
+
+### As Admin:
+- [Log in as an admin](https://github.com/MartinaP87/power-yoga/issues/1)
+- [Create a draft yoga type](https://github.com/MartinaP87/power-yoga/issues/22)
+- [Manage yoga types](https://github.com/MartinaP87/power-yoga/issues/24)
+- [Create a draft yoga class](https://github.com/MartinaP87/power-yoga/issues/23)
+- [Manage yoga classes](https://github.com/MartinaP87/power-yoga/issues/25)
+- [Create draft posts](https://github.com/MartinaP87/power-yoga/issues/4)
+- [Manage posts](https://github.com/MartinaP87/power-yoga/issues/5)
+- [Approve comments](https://github.com/MartinaP87/power-yoga/issues/3)
+
 ## FEATURES:
 
 ### Navbar
+ <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880228/readme_images/navbar_2_tbg4ii.png">
+
 - The fully responsive navigation bar appears on all pages;
 - It includes links to the Logo, Home page, About, Classes, Blog, Sign-in, and Sign Up page and is identical on each page to allow for easy navigation.
 - When the user is logged in, the navbar also displays a link to Book and Reservations, which are restricted areas;
@@ -14,33 +73,33 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - When the screen size reduces to the breakpoint, the navbar collapse into a hamburger menu.
 
 ### Callout Section
- <img src ="">
+ <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880227/readme_images/callout_ntvm6q.png">
 
 - It displays a message that encourages the user to sign up;
 - It includes a link to the Sign Up page to facilitate the process.
 
 
 ### Introduction Section
- <img src ="">
+ <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880226/readme_images/introduction_wbhvkq.png">
 
 - The introduction section will allow the user to have a quick overview of the purpose of the site and the yoga types practiced;
 - In this section, the user will see the benefits of this practice. This should motivate the user to participate in the classes.
 
 ### Today's Classes Section
- <img src ="">
+ <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880227/readme_images/todays_class_f71otc.png">
 
 - This section  is displayed when there is/are a class/es on the current day;
 - It shows the class details so that the user can make a booking or have a reminder;
 - When there are no classes on the current day, the section doesn't show.
 
 ### Quotes Section
- <img src ="">
+ <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880225/readme_images/quotes_huaxji.png">
 
 - This section provides the  user feedback about the course;
 - It motivates the user to subscribe and participate in the classes.
 
 ### Footer
- <img src ="">
+ <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880224/readme_images/footer_bu7axh.png">
 
 - The footer section includes links to Carmen's social media sites;
 - The links will open to a new tab to allow easy navigation for the user;
@@ -48,18 +107,18 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - This section appears on all pages.
 
 ### Yoga Benefits Section
- <img src ="">
+ <img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880226/readme_images/yoga_benefits_zupvec.png">
 
 - This section explains to the user the additional values yoga can bring to their life.
 
 ### My Passion For Yoga Section
-<img src ="">
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880228/readme_images/my_passion_for_yoga_pthvd3.png">
 
 - Describes Carmen's first steps into yoga discipline and the journey that brought her to become a yoga teacher;
 - The experience presented in the section gives the user the feel of a human connection since he can now relate to Carmen as a real person.
 
 ### Yoga Class Section
-<img src ="">
+<img src ="https://res.cloudinary.com/dolts3yad/image/upload/v1671880228/readme_images/class_type_card_reynme.png">
 
 - This section has an image to allow the user to have a visual acknowledgment of the exercises practiced in the class;
 - This section has a button that opens a modal whit the full description of what the class involves to allow the user to understand which yoga type suits them best;
@@ -80,12 +139,12 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - Under the title, it displays the username of the publisher and the date when the post was published.
 
 ### Post Page Content Sction
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880227/readme_images/post_content_kljaxl.png">
 
 - This section displays the content of the post that the user chose.
 
 ### Like Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880227/readme_images/post_like_vzjeus.png">
 
 - This section displays the number of likes that the relevant post received;
 - If signed in, the user can click on the heart icon to leave a like and click again to remove it;
@@ -93,19 +152,19 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - If not signed in, the user can only view the likes, and clicking on the icon won't have any effect.
 
 ### Messages Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880227/readme_images/post_commented_dgrguk.png">
 
 - This section displays the number of comments that the relevant post received.
 
 ### Comments Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880226/readme_images/comments_mudd8n.png">
 
 - This section displays the approved comments written by the admin and users, along with the username and date related to them;
 - The comments are ordered by date, with the most recent at the top;
 - This section allows the user easily follow the conversation.
 
 ### Comments Form Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880226/readme_images/comment_form_uswyz8.png">
 
 - This section displays a form that allows the user to leave feedback;
 - Through this section, the user can interact with other users;
@@ -113,14 +172,14 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 
 
 ### Booking Form Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880225/readme_images/booking_form_y3tjzr.png">
 
 - This section displays a form to make a reservation for a class;
 - The dropdown menu displays the classes present on the calendar, and the user can choose from them;
 - Once the form is submitted, the user receives feedback on whether the booking has been successful or not, and in that case, it explains the reason for the failure.
 
 ### Calendar Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880226/readme_images/calendar_kjgbj5.png">
 
 - This section displays a table with the time slots and the days of the current and next week;
 - The days row updates automatically so that the current week is always close-up;
@@ -128,7 +187,7 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - This disposition facilitates the view of the classes for a better time planning for the user.
 
 ### Reservations Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880225/readme_images/reservations_w788sa.png">
 
 - This section displays the classes booked by the logged-in user and the relative details;
 - If the user leaves a note about a class, it displays under the relevant reservation;
@@ -136,7 +195,7 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - This section is a reminder for the user of the booked classes.
 
 ### Notes Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880993/readme_images/note_hfgtp5.png">
 
 - This section displays notes written by the user;
 - Every note is under the reservation it refers to;
@@ -145,19 +204,19 @@ Yoga with Carmen targets people interested in yoga and would like to start or ke
 - Next to the edit button, there is a delete button that, when clicked, calls a modal to confirm the deletion.
 
 ### Add Notes Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880225/readme_images/add_note_form_lz91vc.png">
 
 - This section displays a form that allows the user to add a note to a reservation;
 - The user can choose the reservation to comment on from a dropdown menu.
 
 ### Edit Notes Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880225/readme_images/edit_note_form_ff3j7k.png">
 
 - This section displays a form that allows the user to edit a note;
 - The updated note takes the place of the previous one under the relevant reservation.
 
-### Sign In Section
-<img src=""> 
+### Sign Up Section
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880226/readme_images/sign_up_pinax1.png"> 
 
 - This section allows the user to create a private account through which they can book classes, write notes, like and comment on posts; 
 - The section displays a paragraph for users that already have an account, inviting them to click on the sign-in button to redirect them to the sign-in form;
@@ -166,7 +225,7 @@ If the form is not filled correctly, it displays error  messages relative to the
 - Once the form is filled up correctly, the submission redirects the user to the home page and shows a success message.
 
 ### Login Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880227/readme_images/sign_in_ewone1.png">
 
 - This section allows the user to sign in to their private account through which they can book classes, write notes, like and comment on posts; 
 - The section displays a paragraph for users that don't already have an account, inviting them to click on the sign-up button to redirect them to the sign-up form;
@@ -177,7 +236,7 @@ If the form is not filled correctly, it displays error  messages relative to the
 - Under the thick box, there is a 'forgot password?' link, that redirects the user to a form to reset the password.
 
 ### Logout Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671880226/readme_images/sign_out_hkflw0.png">
 
 - The section requests the user a logout confirmation;
 - Once logged out, the user is redirected to the home page and won't be able to access the restricted areas;
@@ -190,11 +249,6 @@ If the form is not filled correctly, it displays error  messages relative to the
 - A system to store classes videos and sell them as packages;
 - A payment system to buy lessons packages;
 - A feature to buy a package and send it as a gift, making sure that only one device can access it.
-
-
-
-## Data Model:
-<img src="">
 
 ## Testing:
 
@@ -210,7 +264,7 @@ If the form is not filled correctly, it displays error  messages relative to the
 - I have conducted manual testing using print statements and/or checking the outcomes on the browser. 
 The results are described underneath:
 
-#### Bookings Views
+### Bookings Views
 <table>
 <thead>
 <tr>
@@ -489,7 +543,7 @@ The results are described underneath:
 </tbody>
 </table>
 
-#### Bookings Views
+### Bookings Views
 <table>
 <thead>
 <tr>

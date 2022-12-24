@@ -24,6 +24,13 @@ def about(request):
     return render(request, "about.html")
 
 
+def info(request):
+    """
+    It renders the info page.
+    """
+    return render(request, "info.html")
+
+
 def class_list(request):
     """
     It renders classes and passes the class list to the template.

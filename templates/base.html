@@ -37,35 +37,38 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="home-page" href="{% url 'home' %}">Home</a>
+                            <a class="nav-link active" aria-labelledby="home-page" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="about_page" href="{% url 'about' %}">About</a>
+                            <a class="nav-link active" aria-labelledby="about_page" href="{% url 'about' %}">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="classes_page"
+                            <a class="nav-link active" aria-labelledby="classes_page"
                                 href="{% url 'classes' %}">Classes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="blog_page" href="{% url 'blog' %}">Blog</a>
+                            <a class="nav-link active" aria-labelledby="blog_page" href="{% url 'blog' %}">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-labelledby="info_page" href="{% url 'info' %}">Info</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="booking_page" href="{% url 'book' %}">Book</a>
+                            <a class="nav-link active" aria-labelledby="booking_page" href="{% url 'book' %}">Book</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="reservations_page" href="{% url 'reservations' %}">Reservations</a>
+                            <a class="nav-link" aria-labelledby="reservations_page" href="{% url 'reservations' %}">Reservations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="logout_page" href="{% url 'account_logout' %}">Logout</a>
+                            <a class="nav-link" aria-labelledby="logout_page" href="{% url 'account_logout' %}">Logout</a>
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="register_page" href="{% url 'account_signup' %}">Sign
+                            <a class="nav-link" aria-labelledby="register_page" href="{% url 'account_signup' %}">Sign
                                 Up</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="login_page" href="{% url 'account_login' %}">Login</a>
+                            <a class="nav-link" aria-labelledby="login_page" href="{% url 'account_login' %}">Login</a>
                         </li>
                         {% endif %}
                     </ul>

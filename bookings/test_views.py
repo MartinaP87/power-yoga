@@ -38,6 +38,11 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'about.html')
 
+    def test_info(self):
+        response = self.client.get('/info/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'info.html')
+
     def test_class_list(self):
         response = self.client.get('/classes/')
         self.assertEqual(response.status_code, 200)
