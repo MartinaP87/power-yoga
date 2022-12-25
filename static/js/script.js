@@ -5,8 +5,6 @@ window.onload = function () {
         let messages = document.getElementById("msg");
         let alert = new bootstrap.Alert(messages);
         alert.close();
-        messages.delete();
-        messages.alert("dispose");
     }
 
     // Display classes in calendar according to day and time slot
@@ -30,6 +28,7 @@ window.onload = function () {
                 if (time.innerText == time_titles.innerText) {
                     for (let time_row = 0; time_row < time_rows.length; time_row++) {
                         let correct_class = time_rows[time_row].className;
+                        console.log("TIME", correct_class)
                         if (title.classList.contains(correct_class)) {
                             time_rows[time_row].innerHTML = '<h6 class="font-weight-bold">' + title.innerText; + '</h6>';
                         }
