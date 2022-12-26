@@ -128,7 +128,7 @@ The design of the website has been implemented using Balsamiq wireframes. The wi
 - If the user is not signed in, the button in the modal doesn't display.
 
 ### Post Section
-<img src="">
+<img src="https://res.cloudinary.com/dolts3yad/image/upload/v1672056800/readme_images/blog_post_lz6lfw.png">
 
 - This section has an image to allow the user to have a visual acknowledgment of what the post is about;
 - It has a title that links to the specific page of the post;
@@ -846,4 +846,6 @@ During testing, I realized that when I tried to retrieve the password, the websi
 - [Pexels](): used for two background images;
 - [Google Fonts](https://fonts.google.com/): used for the website's fonts;
 - [Font Awesome](https://fontawesome.com/): used for icons;
+- [Tinyjpg](https://tinyjpg.com/): used to compress images;
+- [Ezgif](https://ezgif.com/jpg-to-webp): used to convert images.
 
