@@ -82,6 +82,10 @@ th {
     text-align: center;
 }
 
+footer p, footer p a {
+    font-size: 1.7rem;
+}
+
 /* sizes */
 
 body {

@@ -29,7 +29,7 @@ window.onload = function () {
                     for (let time_row = 0; time_row < time_rows.length; time_row++) {
                         let correct_class = time_rows[time_row].className;
                         if (title.classList.contains(correct_class)) {
-                            time_rows[time_row].innerHTML = '<h6 class="font-weight-bold">' + title.innerText; + '</h6>';
+                            time_rows[time_row].innerHTML = '<h2 class="fs-5 font-weight-bold">' + title.innerText; + '</h2>';
                         }
                     }
                 }
