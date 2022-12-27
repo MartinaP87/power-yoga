@@ -1,5 +1,5 @@
 # Yoga with Carmen
-[View the live project here](https://carmen-yoga.herokuapp.com/)
+[View the live project here](https://yoga-with-carmen.herokuapp.com/)
 
 Yoga with Carmen is a website built for the yoga teacher Carmen Ferraro. The website allows Carmen to showcase her work, publish classes, set maximum available spaces, and display them on a calendar. Users can sign up, view, comment, and like posts, book classes, and comment on their reservations. The purpose of the website is mainly informative. It provides an exhaustive description of the disciplines practiced, allowing users who want to start a yoga journey to have a better understanding of the courses.
 Yoga with Carmen targets people interested in yoga and would like to start or keep practicing it; it also targets people with physical pain problems due to bad posture and helps them resolve them through exercise.
@@ -553,7 +553,7 @@ The results are described underneath:
 </tbody>
 </table>
 
-### Bookings Views
+### Yoga blog Views
 <img src="https://res.cloudinary.com/dolts3yad/image/upload/v1671903966/readme_images/python_testing_blog_veex6s.png">
 
 <table>

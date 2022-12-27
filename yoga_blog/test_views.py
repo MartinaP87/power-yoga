@@ -18,8 +18,9 @@ class TestViews(TestCase):
         login = self.client.login(username=username, password=password)
         self.assertTrue(login)
         self.post = Post.objects.create(
-            title='TestPostToComment', author=self.user, slug='test_slug', status=1)
-          
+            title='TestPostToComment', author=self.user, slug='test_slug',
+            status=1)
+
     def test_blog(self):
         response = self.client.get('/blog/')
         self.assertEqual(response.status_code, 200)
